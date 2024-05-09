@@ -21,8 +21,8 @@ public class SecondaryCreation extends BaseEntity {
     private Long id;
     @Column(nullable = false)
     private String content;
-    @Column(nullable = false)
-    private String url;
+//    @Column(nullable = false)
+//    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
