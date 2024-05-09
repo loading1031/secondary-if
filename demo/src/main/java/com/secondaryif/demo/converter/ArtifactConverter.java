@@ -17,6 +17,7 @@ public class ArtifactConverter {
     }
     public static ArtifactResDto.PostResDto toPostResDto(Artifact artifact){
         return ArtifactResDto.PostResDto.builder()
+                .ArtifactId(artifact.getId())
                 .title(artifact.getTitle())
                 .author(artifact.getMember().getName())
                 .createdAt(artifact.getCreatedAt())

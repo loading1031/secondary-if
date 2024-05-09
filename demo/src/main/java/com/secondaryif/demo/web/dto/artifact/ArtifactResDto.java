@@ -13,6 +13,7 @@ public class ArtifactResDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PostResDto{
+        Long ArtifactId;
         String title;
         String author;
         LocalDateTime createdAt;
