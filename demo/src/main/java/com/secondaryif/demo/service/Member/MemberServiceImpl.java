@@ -18,6 +18,7 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
     @Override
+    @Transactional
     public MemberResDto.JoinResDto join(MemberReqDto.JoinDto request) {
         Member newMember = MemberConverter.toMember(request);
 
