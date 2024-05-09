@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -25,5 +27,11 @@ public class ArtifactServiceImpl implements ArtifactService{
         newArtifact.setArtifact(getMember);
 
         return ArtifactConverter.toPostResDto(artifactRepository.save(newArtifact));
+    }
+
+    @Override
+    public List<ArtifactResDto.PostResDto> getArtifactList() {
+
+        return ArtifactConverter.getArtDtoList(artifactRepository.findAll());
     }
 }

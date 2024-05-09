@@ -5,6 +5,8 @@ import com.secondaryif.demo.domain.Member;
 import com.secondaryif.demo.web.dto.artifact.ArtifactReqDto;
 import com.secondaryif.demo.web.dto.artifact.ArtifactResDto;
 
+import java.util.List;
+
 public class ArtifactConverter {
 
     public static Artifact toPost(ArtifactReqDto.PostDto request, Member member){
@@ -19,5 +21,10 @@ public class ArtifactConverter {
                 .author(artifact.getMember().getName())
                 .createdAt(artifact.getCreatedAt())
                 .build();
+    }
+    public static List<ArtifactResDto.PostResDto> getArtDtoList(List<Artifact> artifactList){
+        return artifactList.stream()
+                .map(ArtifactConverter::toPostResDto)
+                .toList();
     }
 }
