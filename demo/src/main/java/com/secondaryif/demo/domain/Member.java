@@ -1,7 +1,7 @@
 package com.secondaryif.demo.domain;
 
 import com.secondaryif.demo.domain.common.BaseEntity;
-import com.secondaryif.demo.domain.mapping.SecondaryCreation;
+import com.secondaryif.demo.domain.mapping.Like;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -27,5 +27,5 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Artifact> ArtifactList = new ArrayList<>();
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<SecondaryCreation> secondaryCreationList = new ArrayList<>();
+    private List<Like> likeList = new ArrayList<>();
 }

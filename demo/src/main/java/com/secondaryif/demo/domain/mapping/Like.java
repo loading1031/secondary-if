@@ -15,14 +15,10 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class SecondaryCreation extends BaseEntity {
+public class Like extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String content;
-//    @Column(nullable = false)
-//    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
@@ -30,11 +26,11 @@ public class SecondaryCreation extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Upload upload;
 
-    public void setSecondaryCreation(Member member){
+    public void setLike(Member member){
         if(this.member != null)
-            this.member.getSecondaryCreationList().remove(this);
+            this.member.getLikeList().remove(this);
         this.member = member;
-        this.member.getSecondaryCreationList().add(this);
+        this.member.getLikeList().add(this);
     }
 
 }
