@@ -28,4 +28,6 @@ public class Member extends BaseEntity {
     private List<Artifact> ArtifactList = new ArrayList<>();
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Like> likeList = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Upload> uploadList = new ArrayList<>();
 }

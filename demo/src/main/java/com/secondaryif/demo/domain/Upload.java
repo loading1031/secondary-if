@@ -35,20 +35,29 @@ public class Upload extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Artifact artifact;
 
-    public void setUpload(Artifact artifact){
-        if(this.artifact != null)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    public void setUpload(Artifact artifact, Member member) {
+        if (this.artifact != null)
             this.artifact.getUploadList().remove(this);
         this.artifact = artifact;
         this.artifact.getUploadList().add(this);
+
+        if (this.member != null)
+            this.member.getUploadList().remove(this);
+        this.member = member;
+        this.artifact.getUploadList().remove(this);
     }
 
     public void addParentNextUpload(Upload parent) {
-        if(!parent.nextUploads.contains(this))
+        if (!parent.nextUploads.contains(this))
             parent.nextUploads.add(this);
     }
 
     public void removeParentNextUpload(Upload parent) {
-        if(parent.nextUploads.contains(this)) {
+        if (parent.nextUploads.contains(this)) {
+            // todo: 부모가 없는 경우, addAll -> 부모가 하나라도 있으면, 제거만하고 끝.
             parent.nextUploads.addAll(this.nextUploads);
             parent.nextUploads.remove(this);
         }
