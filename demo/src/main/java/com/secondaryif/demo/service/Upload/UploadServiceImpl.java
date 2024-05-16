@@ -23,6 +23,7 @@ public class UploadServiceImpl implements UploadService{
     private final ArtifactService artifactService;
     private final UploadRepository uploadRepository;
     @Override
+    @Transactional
     public UploadResDto.PostUploadResDto postUpload(Long memberId, Long artifactId, UploadReqDto.PostUploadDto request) {
         Member writer = memberService.getMember(memberId);
         Artifact artifact = artifactService.getArtifact(artifactId);
