@@ -10,11 +10,4 @@ public class MemberReqDto {
         String name;
     }
 
-    @Getter
-    public static class UploadDto{
-        @NotBlank
-        String url;
-        @NotBlank
-        String content;
-    }
 }
