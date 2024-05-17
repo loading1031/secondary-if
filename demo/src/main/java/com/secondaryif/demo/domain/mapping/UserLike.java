@@ -15,7 +15,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Like extends BaseEntity {
+public class UserLike extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,9 +28,9 @@ public class Like extends BaseEntity {
 
     public void setLike(Member member){
         if(this.member != null)
-            this.member.getLikeList().remove(this);
+            this.member.getUserLikeList().remove(this);
         this.member = member;
-        this.member.getLikeList().add(this);
+        this.member.getUserLikeList().add(this);
     }
 
 }
