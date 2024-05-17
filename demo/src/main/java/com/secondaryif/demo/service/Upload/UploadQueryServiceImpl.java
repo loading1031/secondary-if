@@ -1,0 +1,30 @@
+package com.secondaryif.demo.service.Upload;
+
+import com.secondaryif.demo.apiPayload.code.status.ErrorStatus;
+import com.secondaryif.demo.apiPayload.exception.GeneralException;
+import com.secondaryif.demo.converter.UploadConverter;
+import com.secondaryif.demo.domain.Upload;
+import com.secondaryif.demo.repository.UploadRepository;
+import com.secondaryif.demo.web.dto.upload.UploadResDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class UploadQueryServiceImpl implements UploadQueryService{
+    private final UploadRepository uploadRepository;
+    @Override
+    public List<UploadResDto.PostUploadResDto> getOriginUploadList(Long artifactId) {
+        return uploadRepository.findAllByArtifactId(artifactId).stream()
+                .filter(upload -> upload.getMember() != null &&
+                        upload.getMember().getId().equals(upload.getArtifact().getMember().getId()))
+                .map(UploadConverter::toPostResDto).toList();
+    }
+    @Override
+    public Upload getUpload(Long uploadId) {
+        return uploadRepository.findById(uploadId).orElseThrow(
+                ()-> new GeneralException(ErrorStatus._BAD_REQUEST));
+    }
+}

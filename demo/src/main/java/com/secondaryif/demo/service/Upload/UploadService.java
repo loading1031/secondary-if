@@ -6,5 +6,5 @@ import com.secondaryif.demo.web.dto.upload.UploadResDto;
 
 public interface UploadService {
     UploadResDto.PostUploadResDto postUpload(Long memberId, Long artifactId, UploadReqDto.PostUploadDto request);
-    Upload getUpload(Long uploadId);
+
 }
