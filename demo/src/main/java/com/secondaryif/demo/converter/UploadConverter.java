@@ -24,24 +24,24 @@ public class UploadConverter {
                 .build();
     }
 
-    public static UploadResDto.GetUploadResDto toGetResDto(Upload upload){
+    public static UploadResDto.GetUploadResDto toGetResDto(Upload upload, Integer likeCount){
         List<UploadResDto.PostUploadResDto> postResDto = upload.getNextUploads().stream()
                 .map(UploadConverter::toPostResDto).toList();
 
+
         return UploadResDto.GetUploadResDto.builder()
+                .writer(upload.getMember().getName())
                 .uploadId(upload.getId())
+                .likeCount(likeCount)
                 .content(upload.getContent())
                 .children(postResDto)
                 .createdAt(upload.getCreatedAt())
                 .build();
     }
 
-    public static UploadResDto.GetUploadListResDto toGetListResDto(List<Upload> uploadList){
-        List<UploadResDto.GetUploadResDto> uploadResDtos =
-                uploadList.stream().map(UploadConverter::toGetResDto).toList();
-
+    public static UploadResDto.GetUploadListResDto toGetListResDto(List<UploadResDto.GetUploadResDto> uploadList){
         return UploadResDto.GetUploadListResDto.builder()
-                .getUploadResDtoList(uploadResDtos)
+                .getUploadResDtoList(uploadList)
                 .build();
     }
 }

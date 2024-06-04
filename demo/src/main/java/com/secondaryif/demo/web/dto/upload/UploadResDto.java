@@ -26,6 +26,7 @@ public class UploadResDto {
         Long uploadId;
         String writer;
         String content;
+        Integer likeCount;
         List<PostUploadResDto> children;
         LocalDateTime createdAt;
     }
