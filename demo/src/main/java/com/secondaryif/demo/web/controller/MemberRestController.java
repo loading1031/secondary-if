@@ -1,4 +1,4 @@
-package com.secondaryif.demo.web.controller.Member;
+package com.secondaryif.demo.web.controller;
 
 import com.secondaryif.demo.apiPayload.ApiResult;
 import com.secondaryif.demo.service.Artifact.ArtifactService;
