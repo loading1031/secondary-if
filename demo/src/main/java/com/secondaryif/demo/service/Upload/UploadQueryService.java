@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface UploadQueryService {
     Upload getUpload(Long uploadId);
-    List<UploadResDto.PostUploadResDto> getOriginUploadList(Long artifactId);
+    UploadResDto.GetUploadListResDto getUploadList(Long artifactId);
+    UploadResDto.GetUploadListResDto getOriginUploadList(Long artifactId);
 }

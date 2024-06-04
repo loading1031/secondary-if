@@ -47,7 +47,7 @@ public class Upload extends BaseEntity {
         if (this.member != null)
             this.member.getUploadList().remove(this);
         this.member = member;
-        this.artifact.getUploadList().remove(this);
+        this.member.getUploadList().remove(this);
     }
 
     public void addParentNextUpload(Upload parent) {

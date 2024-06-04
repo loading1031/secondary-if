@@ -31,12 +31,12 @@ public class ArtifactConverter {
     }
 
     public static ArtifactResDto.GetDetailsDto getDetailsDto(
-            List<UploadResDto.PostUploadResDto> uploadResDtos, Artifact artifact){
+            UploadResDto.GetUploadListResDto uploadResDtos, Artifact artifact){
         return ArtifactResDto.GetDetailsDto.builder()
                 .artifactId(artifact.getId())
                 .title(artifact.getTitle())
                 .author(artifact.getMember().getName())
-                .postUploadResDtoList(uploadResDtos)
+                .totalUploadResDtoList(uploadResDtos)
                 .build();
     }
 }

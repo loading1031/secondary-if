@@ -30,8 +30,13 @@ public class ArtifactRestController {
             @RequestBody UploadReqDto.PostUploadDto request) {
         return ApiResult.onSuccess(uploadService.postUpload(memberId, artifactId, request));
     }
-    @GetMapping("/{artifactId}")
+    @GetMapping("/{artifactId}/original")
     ApiResult<?>getArtWithOriginUploadList(@PathVariable(name = "artifactId") Long artifactId){
         return ApiResult.onSuccess(artifactService.getArtifactWithOriginUploads(artifactId));
     }
+    @GetMapping("/{artifactId}")
+    ApiResult<?>getArtWithTotalUploadList(@PathVariable(name = "artifactId") Long artifactId){
+        return ApiResult.onSuccess(artifactService.getArtifactWithTotalUploads(artifactId));
+    }
+
 }

@@ -28,6 +28,6 @@ public class ArtifactResDto {
         Long artifactId;
         String title;
         String author;
-        List<UploadResDto.PostUploadResDto> postUploadResDtoList;
+        UploadResDto.GetUploadListResDto totalUploadResDtoList;
     }
 }

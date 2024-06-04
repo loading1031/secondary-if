@@ -16,15 +16,22 @@ import java.util.List;
 public class UploadQueryServiceImpl implements UploadQueryService{
     private final UploadRepository uploadRepository;
     @Override
-    public List<UploadResDto.PostUploadResDto> getOriginUploadList(Long artifactId) {
-        return uploadRepository.findAllByArtifactId(artifactId).stream()
+    //todo: converter로 편입
+    public UploadResDto.GetUploadListResDto getOriginUploadList(Long artifactId) {
+        return UploadConverter.toGetListResDto(
+                uploadRepository.findAllByArtifactId(artifactId).stream()
                 .filter(upload -> upload.getMember() != null &&
                         upload.getMember().getId().equals(upload.getArtifact().getMember().getId()))
-                .map(UploadConverter::toPostResDto).toList();
+                .toList()
+        );
     }
     @Override
     public Upload getUpload(Long uploadId) {
         return uploadRepository.findById(uploadId).orElseThrow(
                 ()-> new GeneralException(ErrorStatus._BAD_REQUEST));
+    }
+    @Override
+    public UploadResDto.GetUploadListResDto getUploadList(Long artifactId) {
+        return UploadConverter.toGetListResDto(uploadRepository.findAllByArtifactId(artifactId));
     }
 }

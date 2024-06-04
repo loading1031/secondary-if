@@ -16,6 +16,7 @@ public class MemberResDto {
         Long memberId;
         LocalDateTime createdAt;
     }
+    /*
     @Builder
     @Getter
     @NoArgsConstructor
@@ -24,4 +25,5 @@ public class MemberResDto {
         Long uploadId;
         LocalDateTime createdAt;
     }
+     */
 }

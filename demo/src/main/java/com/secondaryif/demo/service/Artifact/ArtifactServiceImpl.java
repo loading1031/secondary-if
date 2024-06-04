@@ -16,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -44,6 +42,13 @@ public class ArtifactServiceImpl implements ArtifactService{
     public ArtifactResDto.GetDetailsDto getArtifactWithOriginUploads(Long artifactId) {
         return ArtifactConverter.getDetailsDto(
                 uploadQueryService.getOriginUploadList(artifactId),
+                getArtifact(artifactId));
+    }
+
+    @Override
+    public ArtifactResDto.GetDetailsDto getArtifactWithTotalUploads(Long artifactId) {
+        return ArtifactConverter.getDetailsDto(
+                uploadQueryService.getUploadList(artifactId),
                 getArtifact(artifactId));
     }
 

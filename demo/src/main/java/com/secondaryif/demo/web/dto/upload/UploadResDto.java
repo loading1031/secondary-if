@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class UploadResDto {
     @Builder
@@ -16,5 +17,24 @@ public class UploadResDto {
         Long uploadId;
         String writer;
         LocalDateTime createdAt;
+    }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetUploadResDto{
+        Long uploadId;
+        String writer;
+        String content;
+        List<PostUploadResDto> children;
+        LocalDateTime createdAt;
+    }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetUploadListResDto{
+        List<GetUploadResDto> getUploadResDtoList;
+
     }
 }
