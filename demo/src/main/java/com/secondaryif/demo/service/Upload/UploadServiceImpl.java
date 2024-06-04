@@ -14,10 +14,12 @@ import com.secondaryif.demo.service.Member.MemberService;
 import com.secondaryif.demo.web.dto.upload.UploadReqDto;
 import com.secondaryif.demo.web.dto.upload.UploadResDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UploadServiceImpl implements UploadService{
@@ -41,16 +43,20 @@ public class UploadServiceImpl implements UploadService{
     }
     @Override
     @Transactional
-    public UploadResDto.GetUploadResDto postLike(Long memberId,Long uploadId){
+    public UploadResDto.GetUploadResDto postLike(Long uploadId,Long memberId){
+        log.info("테스트1");
+        //Todo: memberId를 못찾는 버그 있음
         Member reader = memberService.getMember(memberId);
         Upload upload = getUpload(uploadId);
-
-        userLikeRepository.save(
-                UserLike.builder()
+        log.info("테스트2");
+        UserLike userLike = UserLike.builder()
                 .upload(upload)
                 .member(reader)
-                .build()
-        );
+                .build();
+        log.info("테스트4");
+        userLike.setLike(reader);
+        userLikeRepository.save(userLike);
+        log.info("테스트5");
         return UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload));
     }
     private Upload getUpload(Long uploadId) {
