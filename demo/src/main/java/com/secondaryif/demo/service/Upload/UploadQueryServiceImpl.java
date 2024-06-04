@@ -38,8 +38,9 @@ public class UploadQueryServiceImpl implements UploadQueryService{
     public UploadResDto.GetUploadListResDto getUploadList(Long artifactId) {
         return UploadConverter.toGetListResDto(
                 uploadRepository.findAllByArtifactId(artifactId).stream()
-                .map(upload -> UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload)))
-                .toList()
+                        .filter(upload -> upload.getMember() != null)
+                        .map(upload -> UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload)))
+                        .toList()
         );
     }
 }

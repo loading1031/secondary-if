@@ -41,9 +41,9 @@ public class ArtifactRestController {
     }
     @PostMapping("/uploads/{uploadId}/like")
     ApiResult<?>likeUpload(
-            @PathVariable(name = "uploadId") Long artifactId,
-            @RequestParam(name = "memberId")Long memberId){
-        return ApiResult.onSuccess(uploadService.postLike(artifactId,memberId));
+            @PathVariable(name = "uploadId") Long uploadId,
+            @RequestParam(name = "memberId") Long memberId){
+        return ApiResult.onSuccess(uploadService.postLike(uploadId,memberId));
     }
 
 }
