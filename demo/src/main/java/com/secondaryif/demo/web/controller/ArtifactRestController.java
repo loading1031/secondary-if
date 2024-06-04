@@ -3,6 +3,7 @@ package com.secondaryif.demo.web.controller;
 import com.secondaryif.demo.apiPayload.ApiResult;
 import com.secondaryif.demo.service.Artifact.ArtifactQueryService;
 import com.secondaryif.demo.service.Artifact.ArtifactService;
+import com.secondaryif.demo.service.Upload.UploadQueryServiceImpl;
 import com.secondaryif.demo.service.Upload.UploadService;
 import com.secondaryif.demo.web.dto.artifact.ArtifactResDto;
 import com.secondaryif.demo.web.dto.upload.UploadReqDto;
@@ -37,6 +38,12 @@ public class ArtifactRestController {
     @GetMapping("/{artifactId}")
     ApiResult<?>getArtWithTotalUploadList(@PathVariable(name = "artifactId") Long artifactId){
         return ApiResult.onSuccess(artifactService.getArtifactWithTotalUploads(artifactId));
+    }
+    @PostMapping("/uploads/{uploadId}/like")
+    ApiResult<?>likeUpload(
+            @PathVariable(name = "uploadId") Long artifactId,
+            @RequestParam(name = "memberId")Long memberId){
+        return ApiResult.onSuccess(uploadService.postLike(artifactId,memberId));
     }
 
 }
