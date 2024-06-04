@@ -23,12 +23,15 @@ public class MemberRestController {
     join(@RequestBody @Valid MemberReqDto.JoinDto request) {
         return ApiResult.onSuccess(memberService.join(request));
     }
-
     @PostMapping("/{memberId}/artifact")
     ApiResult<ArtifactResDto.PostResDto> createArtifact(
             @PathVariable(name = "memberId") Long memberId,
             @RequestBody @Valid ArtifactReqDto.PostDto request){
         return ApiResult.onSuccess(artifactService.postArtifact(request, memberId));
+    }
+    @GetMapping("")
+    ApiResult<?> getMemberList(){
+        return ApiResult.onSuccess(memberService.getMemberList());
     }
 
 }

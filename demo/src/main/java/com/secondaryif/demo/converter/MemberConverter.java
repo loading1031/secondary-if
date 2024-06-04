@@ -1,4 +1,4 @@
-package com.secondaryif.demo.converter.Member;
+package com.secondaryif.demo.converter;
 
 import com.secondaryif.demo.domain.Member;
 import com.secondaryif.demo.web.dto.member.MemberReqDto;
@@ -16,6 +16,7 @@ public class MemberConverter {
     public static MemberResDto.JoinResDto toJoinResDto(Member member){
 
         return MemberResDto.JoinResDto.builder()
+                .name(member.getName())
                 .memberId(member.getId())
                 .createdAt(member.getCreatedAt())
                 .build();

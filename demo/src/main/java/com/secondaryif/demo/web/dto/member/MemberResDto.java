@@ -14,6 +14,7 @@ public class MemberResDto {
     @AllArgsConstructor
     public static class JoinResDto{
         Long memberId;
+        String name;
         LocalDateTime createdAt;
     }
     /*
