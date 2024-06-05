@@ -3,6 +3,7 @@ package com.secondaryif.demo.web.controller;
 import com.secondaryif.demo.apiPayload.ApiResult;
 import com.secondaryif.demo.service.Artifact.ArtifactQueryService;
 import com.secondaryif.demo.service.Artifact.ArtifactService;
+import com.secondaryif.demo.service.Upload.UploadQueryService;
 import com.secondaryif.demo.service.Upload.UploadQueryServiceImpl;
 import com.secondaryif.demo.service.Upload.UploadService;
 import com.secondaryif.demo.web.dto.artifact.ArtifactResDto;
@@ -20,16 +21,18 @@ public class ArtifactRestController {
     private final ArtifactService artifactService;
     private final ArtifactQueryService artifactQueryService;
     private final UploadService uploadService;
+    private final UploadQueryService uploadQueryService;
     @GetMapping("")
     ApiResult<List<ArtifactResDto.PostResDto>>getArtList(){
         return ApiResult.onSuccess(artifactQueryService.getArtifactList());
     }
     @PostMapping("/{artifactId}/upload")
-    ApiResult<UploadResDto.PostUploadResDto>postUpload(
+    ApiResult<?>postUpload(
             @RequestParam(name = "memberId")Long memberId,
             @PathVariable(name = "artifactId") Long artifactId,
             @RequestBody UploadReqDto.PostUploadDto request) {
-        return ApiResult.onSuccess(uploadService.postUpload(memberId, artifactId, request));
+       // return ApiResult.onSuccess(uploadService.postUpload(memberId, artifactId, request));
+        return ApiResult.onSuccess(uploadService.postUpload2(memberId, artifactId, request));
     }
     @GetMapping("/{artifactId}/original")
     ApiResult<?>getArtWithOriginUploadList(@PathVariable(name = "artifactId") Long artifactId){
@@ -44,6 +47,10 @@ public class ArtifactRestController {
             @PathVariable(name = "uploadId") Long uploadId,
             @RequestParam(name = "memberId") Long memberId){
         return ApiResult.onSuccess(uploadService.postLike(uploadId,memberId));
+    }
+    @GetMapping("/uploadGraphs/{uploadGraphId}")
+    ApiResult<?>getUploadGraph(@PathVariable(name = "uploadGraphId") Long uploadGraphId){
+        return ApiResult.onSuccess(uploadQueryService.getUploadGraph(uploadGraphId));
     }
 
 }

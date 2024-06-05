@@ -23,7 +23,7 @@ public class TransactionManagerConfig {
         return new Neo4jTransactionManager(driver);
     }
     @Bean("chainedTransactionManager")
-    public PlatformTransactionManager transactionManager(JpaTransactionManager h2TransactionManager,
+    public PlatformTransactionManager chainedTransactionManager(JpaTransactionManager h2TransactionManager,
                                                          Neo4jTransactionManager neo4jTransactionManager) {
         return new ChainedTransactionManager(h2TransactionManager, neo4jTransactionManager);
     }
