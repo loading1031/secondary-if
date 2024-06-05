@@ -6,8 +6,10 @@ import com.secondaryif.demo.converter.ArtifactConverter;
 import com.secondaryif.demo.domain.Artifact;
 import com.secondaryif.demo.domain.Member;
 import com.secondaryif.demo.domain.Upload;
+import com.secondaryif.demo.domain.neo4j.UploadGraph;
 import com.secondaryif.demo.repository.ArtifactRepository;
 import com.secondaryif.demo.repository.UploadRepository;
+import com.secondaryif.demo.repository.neo4j.UploadGraphRepository;
 import com.secondaryif.demo.service.Member.MemberService;
 import com.secondaryif.demo.service.Upload.UploadQueryService;
 import com.secondaryif.demo.web.dto.artifact.ArtifactReqDto;
@@ -24,17 +26,26 @@ public class ArtifactServiceImpl implements ArtifactService{
     private final UploadQueryService uploadQueryService;
     private final ArtifactRepository artifactRepository;
     private final UploadRepository uploadRepository;
-
+    private final UploadGraphRepository uploadGraphRepository;
     @Override
-    @Transactional
+    @Transactional("chainedTransactionManager")
     public ArtifactResDto.PostResDto postArtifact(ArtifactReqDto.PostDto request, Long memberId) {
         Member getMember = memberService.getMember(memberId);
         Artifact newArtifact = ArtifactConverter.toPost(request,getMember);
         newArtifact.setArtifact(getMember);
 
-        uploadRepository.save(Upload.builder()
+        Upload root = Upload.builder()
                 .artifact(newArtifact)
-                .content("루트 페이지입니다.").build());
+                .content("루트 페이지입니다.")
+                .build();
+        uploadRepository.save(root);
+
+        uploadGraphRepository.save(
+                UploadGraph.builder()
+                        .id(root.getId())
+                        .content(root.getContent())
+                        .build()
+        );
         return ArtifactConverter.toPostResDto(artifactRepository.save(newArtifact));
     }
 
