@@ -16,5 +16,9 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
+  neo4j:
+    uri: bolt://localhost:7687
+    authentication:
+      username: neo4j
+      password: tjdans7706
 
