@@ -31,8 +31,7 @@ public class ArtifactRestController {
             @RequestParam(name = "memberId")Long memberId,
             @PathVariable(name = "artifactId") Long artifactId,
             @RequestBody UploadReqDto.PostUploadDto request) {
-       // return ApiResult.onSuccess(uploadService.postUpload(memberId, artifactId, request));
-        return ApiResult.onSuccess(uploadService.postUpload2(memberId, artifactId, request));
+       return ApiResult.onSuccess(uploadService.postUpload(memberId, artifactId, request));
     }
     @GetMapping("/{artifactId}/original")
     ApiResult<?>getArtWithOriginUploadList(@PathVariable(name = "artifactId") Long artifactId){

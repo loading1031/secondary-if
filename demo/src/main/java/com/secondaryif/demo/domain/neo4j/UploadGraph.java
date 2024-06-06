@@ -24,7 +24,7 @@ public class UploadGraph {
      * to ignore the direction of the relationship.
      * https://dzone.com/articles/modelling-data-neo4j
      */
-/*
+
     @Relationship(type = "childRelationShip", direction = Relationship.Direction.OUTGOING)
     public Set<FamilyRelationShip> childRelationShips;
 
@@ -38,28 +38,6 @@ public class UploadGraph {
                 .weight(weight)
                 .build();
         this.childRelationShips.add(relationShip);
-    }
- */
-
-
-    @Relationship(type = "parentRelationShip", direction = Relationship.Direction.OUTGOING)
-    // 다른 노드를 부모로 설정 -> 이거
-    public Set<FamilyRelationShip> parentRelationShips;
-
-    public void setToParentList(Set<UploadGraph> prevSet){
-        if(prevSet != null)
-            prevSet.forEach(prev->setToParentRelationShip(prev,0));
-    }
-    public void setToParentRelationShip(UploadGraph parent, int weight) {
-        if (this.parentRelationShips == null) {
-            this.parentRelationShips = new HashSet<>();
-        }
-        FamilyRelationShip relationShip = FamilyRelationShip.builder()
-                .child(this)
-                .parent(parent)
-                .weight(weight)
-                .build();
-        this.parentRelationShips.add(relationShip);
     }
 
 }

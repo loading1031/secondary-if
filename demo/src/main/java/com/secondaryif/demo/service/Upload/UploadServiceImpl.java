@@ -43,34 +43,13 @@ public class UploadServiceImpl implements UploadService{
         newUpload.setUpload(artifact,writer);
         Upload h2Upload = uploadRepository.save(newUpload);
         //  neo4j 저장
-
-        UploadGraph newUploadGraph = UploadGraphConverter.toPost(h2Upload);
+        UploadGraph newUploadGraph = UploadGraphConverter.toPost(getUpload(h2Upload.getId()));
         UploadGraph parent = getUploadGraph(request.getPrevId());
-        newUploadGraph.setToParentRelationShip(parent, 0); // weight는 조회량으로 늘어남
+        parent.setToChildRelationShip(newUploadGraph, 0); // weight는 조회량으로 늘어남
+        uploadGraphRepository.save(parent);
 
-        uploadGraphRepository.save(newUploadGraph).getParentRelationShips().
-                forEach(relationShip-> log.info("########Setting parent########: Parent ID = {}, Child ID = {}",
-                    relationShip.getParent().getId(), relationShip.getChild().getId()));
         return UploadConverter.toPostResDto(newUpload);
-    }
-    @Transactional("chainedTransactionManager")
-    public UploadGraph postUpload2(Long memberId, Long artifactId, UploadReqDto.PostUploadDto request) {
-        Member writer = memberService.getMember(memberId);
-        Artifact artifact = artifactQueryService.getArtifact(artifactId);
-        // h2 저장
-        Upload newUpload = UploadConverter.toPost(writer, artifact, request.getContent());
-        Upload prev = getUpload(request.getPrevId());
-        newUpload.addParentNextUpload(prev);
-        newUpload.setUpload(artifact,writer);
-        Upload h2Upload = uploadRepository.save(newUpload);
-        //  neo4j 저장
-        UploadGraph newUploadGraph = UploadGraphConverter.toPost(h2Upload);
-        UploadGraph parent = getUploadGraph(request.getPrevId());
-        newUploadGraph.setToParentRelationShip(parent, 0); // weight는 조회량으로 늘어남
-        UploadGraph newNode = uploadGraphRepository.save(newUploadGraph);
-        newNode.getParentRelationShips().forEach(relationShip-> log.info("########Setting parent########: Parent ID = {}, Child ID = {}",
-                        relationShip.getParent().getId(), relationShip.getChild().getId()));
-        return getUploadGraph(newNode.getId());
+
     }
     @Override
     @Transactional
