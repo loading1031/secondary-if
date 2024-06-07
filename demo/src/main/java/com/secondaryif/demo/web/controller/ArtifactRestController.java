@@ -4,11 +4,9 @@ import com.secondaryif.demo.apiPayload.ApiResult;
 import com.secondaryif.demo.service.Artifact.ArtifactQueryService;
 import com.secondaryif.demo.service.Artifact.ArtifactService;
 import com.secondaryif.demo.service.Upload.UploadQueryService;
-import com.secondaryif.demo.service.Upload.UploadQueryServiceImpl;
 import com.secondaryif.demo.service.Upload.UploadService;
 import com.secondaryif.demo.web.dto.artifact.ArtifactResDto;
 import com.secondaryif.demo.web.dto.upload.UploadReqDto;
-import com.secondaryif.demo.web.dto.upload.UploadResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +48,10 @@ public class ArtifactRestController {
     @GetMapping("/uploadGraphs/{uploadGraphId}")
     ApiResult<?>getUploadGraph(@PathVariable(name = "uploadGraphId") Long uploadGraphId){
         return ApiResult.onSuccess(uploadQueryService.getUploadGraph(uploadGraphId));
+    }
+    @GetMapping("/{artifactId}/uploads/famous")
+    ApiResult<?> getMaxWeightGraph(@PathVariable(name="artifactId") Long artifactId){
+        return ApiResult.onSuccess(uploadQueryService.getMaxWeightPathDto(artifactId));
     }
 
 }
