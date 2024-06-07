@@ -12,11 +12,12 @@ import org.springframework.data.neo4j.core.schema.TargetNode;
 @Getter
 @Setter
 @Builder
-public class FamilyRelationShip {
+public class UploadRelationship {
 
     @Id // import 조심하기.. persistance로 하면 에러 뜸...
     @GeneratedValue // jpa랑은 다르게 strategy가 없어도 identity로 증가
     private Long id;
+
     @TargetNode // EndNode가 없고, 이게 있음
     private UploadGraph child;
     private int weight;

@@ -26,17 +26,27 @@ public class UploadGraph {
      */
 
     @Relationship(type = "childRelationShip", direction = Relationship.Direction.OUTGOING)
-    public Set<FamilyRelationShip> childRelationShips;
+    public Set<UploadRelationship> childRelationShips;
 
     public void setToChildRelationShip(UploadGraph child, int weight) {
         if (this.childRelationShips == null) {
             this.childRelationShips = new HashSet<>();
         }
-        FamilyRelationShip relationShip = FamilyRelationShip.builder()
+        log.info("before uploadRelationship");
+        UploadRelationship uploadRelationship = this.childRelationShips.stream()
+               .filter(relationship -> relationship.getChild().equals(child))
+               .findFirst().orElse(null);
+        log.info("after uploadRelationship:{}",uploadRelationship);
+        if(uploadRelationship != null) { // 이미 저장된 노드면, 자식 노드 인수인계 -> 삭제 -> 다시 저장
+            this.childRelationShips.forEach(relationship->{
+                child.setToChildRelationShip(relationship.getChild(), relationship.getWeight());
+            });
+            this.childRelationShips.remove(uploadRelationship);
+        }
+        UploadRelationship relationShip = UploadRelationship.builder()
                 .child(child)
                 .weight(weight)
                 .build();
         this.childRelationShips.add(relationShip);
     }
-
 }
