@@ -1,4 +1,4 @@
-package com.secondaryif.demo.repository;
+package com.secondaryif.demo.repository.mapping;
 
 import com.secondaryif.demo.domain.Upload;
 import com.secondaryif.demo.domain.mapping.UserLike;

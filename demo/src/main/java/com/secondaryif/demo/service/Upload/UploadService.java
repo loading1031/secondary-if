@@ -1,6 +1,5 @@
 package com.secondaryif.demo.service.Upload;
 
-import com.secondaryif.demo.domain.neo4j.UploadGraph;
 import com.secondaryif.demo.web.dto.upload.UploadReqDto;
 import com.secondaryif.demo.web.dto.upload.UploadResDto;
 

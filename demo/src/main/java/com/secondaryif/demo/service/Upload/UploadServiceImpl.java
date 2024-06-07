@@ -10,7 +10,7 @@ import com.secondaryif.demo.domain.Upload;
 import com.secondaryif.demo.domain.mapping.UserLike;
 import com.secondaryif.demo.domain.neo4j.UploadGraph;
 import com.secondaryif.demo.repository.UploadRepository;
-import com.secondaryif.demo.repository.UserLikeRepository;
+import com.secondaryif.demo.repository.mapping.UserLikeRepository;
 import com.secondaryif.demo.repository.neo4j.UploadGraphRepository;
 import com.secondaryif.demo.service.Artifact.ArtifactQueryService;
 import com.secondaryif.demo.service.Member.MemberService;
