@@ -53,5 +53,15 @@ public class ArtifactRestController {
     ApiResult<?> getMaxWeightGraph(@PathVariable(name="artifactId") Long artifactId){
         return ApiResult.onSuccess(uploadQueryService.getMaxWeightPathDto(artifactId));
     }
+    @GetMapping("/{artifactId}/uploads/{uploadId}")
+    ApiResult<?> getUploadDto(
+            @PathVariable(name="artifactId") Long artifactId,
+            @PathVariable(name="uploadId") Long uploadId,
+            @RequestParam(name="prevUploadId",required=false, defaultValue="0") Long prevUploadId){
+
+        if(prevUploadId != 0)
+            return ApiResult.onSuccess(uploadQueryService.getUploadDtoByFetchWeight(prevUploadId,uploadId));
+        else return ApiResult.onSuccess(uploadQueryService.getUploadDto(uploadId));
+    }
 
 }

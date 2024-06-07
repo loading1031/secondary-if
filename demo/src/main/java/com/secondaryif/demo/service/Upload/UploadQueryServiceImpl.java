@@ -7,8 +7,9 @@ import com.secondaryif.demo.converter.UploadGraphConverter;
 import com.secondaryif.demo.domain.Artifact;
 import com.secondaryif.demo.domain.Upload;
 import com.secondaryif.demo.domain.neo4j.UploadGraph;
+import com.secondaryif.demo.domain.neo4j.UploadRelationship;
 import com.secondaryif.demo.repository.UploadRepository;
-import com.secondaryif.demo.repository.UserLikeRepository;
+import com.secondaryif.demo.repository.mapping.UserLikeRepository;
 import com.secondaryif.demo.repository.neo4j.CustomUploadGraphRepository;
 import com.secondaryif.demo.repository.neo4j.UploadGraphRepository;
 import com.secondaryif.demo.service.Artifact.ArtifactQueryService;
@@ -20,6 +21,7 @@ import org.neo4j.driver.types.Node;
 import org.neo4j.driver.types.Path;
 import org.neo4j.driver.types.Relationship;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +54,6 @@ public class UploadQueryServiceImpl implements UploadQueryService{
         return uploadGraphRepository.findById(uploadGraphId).orElseThrow(
                 ()->new GeneralException(ErrorStatus._NOT_FOUND));
     }
-
     @Override
     public UploadPathDto.PathDto getMaxWeightPathDto(Long artifactId) {
         Map<String, UploadPathDto.NodeDto> nodeDtoMap = new HashMap<>();
@@ -83,12 +84,33 @@ public class UploadQueryServiceImpl implements UploadQueryService{
         }
         return UploadGraphConverter.convertPathToDto(nodeDtoMap,relationshipDtos);
     }
-
-
     @Override
     public Upload getUpload(Long uploadId) {
         return uploadRepository.findById(uploadId).orElseThrow(
                 ()-> new GeneralException(ErrorStatus._BAD_REQUEST));
+    }
+    @Override
+    public UploadResDto.GetUploadResDto getUploadDto(Long startId) {
+        Upload upload = getUpload(startId);
+        return UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload));
+    }
+    @Override
+    @Transactional("neo4jTransactionManager")
+    public UploadResDto.GetUploadResDto getUploadDtoByFetchWeight(Long startId, Long endId) {
+        UploadGraph startNode = getUploadGraph(startId);
+        Upload end = getUpload(endId);
+
+        UploadRelationship relationship = getRelationship(startNode,endId);
+
+        log.info("변경전: {}",relationship.getWeight());
+        relationship.setWeight(relationship.getWeight()+1);
+        //Todo: 직접 set을 안쓰려고했는데, 조회량으로 계속 바뀌어야해서 일단 set으로 설정.
+        // 삭제하고 다시 간선을 만드는건 비효율적이고, 일단 이놈의 간선은 삭제가 안됨. remove를 써도 안먹힘.
+        uploadGraphRepository.save(startNode);
+        //uploadRelationshipRepository.save(relationship); -> 간선을 바로 저장하면, 아무 변화 없음.. 무조건 노드를 통해 접근해야함
+        log.info("변경후: {}",getRelationship(startNode,endId).getWeight());
+
+        return UploadConverter.toGetResDto(end, userLikeRepository.countByUpload(end));
     }
     @Override
     public UploadResDto.GetUploadListResDto getUploadList(Long artifactId) {
@@ -106,5 +128,12 @@ public class UploadQueryServiceImpl implements UploadQueryService{
         return customUploadGraphRepository.findMaxWeightPath(
                 uploadList.get(0).getId(),uploadList.get(uploadList.size() - 1).getId()
         ).orElseThrow(()-> new GeneralException(ErrorStatus._NOT_FOUND));
+    }
+    private UploadRelationship getRelationship(UploadGraph node,Long endId ){
+        return node.getChildRelationShips().stream()
+                .filter(rel -> rel.getChild().getId().equals(endId))
+                .findFirst()
+                .orElseThrow(()->new RuntimeException("가중치를 조정할 간선을 못찾았습니다."));  // 혹은 적절한 예외 처리
+
     }
 }

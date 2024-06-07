@@ -7,6 +7,8 @@ import com.secondaryif.demo.web.dto.upload.UploadResDto;
 
 public interface UploadQueryService {
     Upload getUpload(Long uploadId);
+    UploadResDto.GetUploadResDto getUploadDto(Long startId);
+    UploadResDto.GetUploadResDto getUploadDtoByFetchWeight(Long startId, Long endId);
     UploadResDto.GetUploadListResDto getUploadList(Long artifactId);
     UploadResDto.GetUploadListResDto getOriginUploadList(Long artifactId);
     UploadGraph getUploadGraph(Long uploadGraphId);
