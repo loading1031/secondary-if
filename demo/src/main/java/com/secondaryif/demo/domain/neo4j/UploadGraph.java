@@ -34,7 +34,6 @@ public class UploadGraph {
         }
         FamilyRelationShip relationShip = FamilyRelationShip.builder()
                 .child(child)
-                .parent(this)
                 .weight(weight)
                 .build();
         this.childRelationShips.add(relationShip);
