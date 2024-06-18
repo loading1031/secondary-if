@@ -32,5 +32,11 @@ public class UploadRestController {
             return ApiResult.onSuccess(uploadQueryService.getUploadDtoByFetchWeight(prevUploadId,uploadId));
         else return ApiResult.onSuccess(uploadQueryService.getUploadDto(uploadId));
     }
-
+    @PatchMapping("/{uploadId}")
+    ApiResult<?> patchUploadWithChild(
+            @PathVariable(name="uploadId") Long uploadId,
+            @RequestParam(name="nextUploadId") Long nextUploadId
+    ){
+        return ApiResult.onSuccess(uploadService.patchUploadChild(uploadId,nextUploadId));
+    }
 }

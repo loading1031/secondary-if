@@ -64,6 +64,20 @@ public class UploadServiceImpl implements UploadService{
         userLikeRepository.save(userLike);
         return UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload));
     }
+
+    @Override
+    @Transactional("neo4jTransactionManager")
+    public UploadResDto.GetUploadResDto patchUploadChild(Long uploadId, Long childId) {
+        UploadGraph uploadGraph = getUploadGraph(uploadId);
+        UploadGraph childGraph = getUploadGraph(childId);
+
+        uploadGraph.setToChildRelationShip(childGraph,0);
+        uploadGraphRepository.save(uploadGraph);
+
+        Upload upload = getUpload(uploadId);
+        return UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload));
+    }
+
     private Upload getUpload(Long uploadId) {
         return uploadRepository.findById(uploadId).orElseThrow(
                 ()-> new GeneralException(ErrorStatus._BAD_REQUEST));
