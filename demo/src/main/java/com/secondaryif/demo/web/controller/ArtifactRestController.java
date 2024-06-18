@@ -39,29 +39,10 @@ public class ArtifactRestController {
     ApiResult<?>getArtWithTotalUploadList(@PathVariable(name = "artifactId") Long artifactId){
         return ApiResult.onSuccess(artifactService.getArtifactWithTotalUploads(artifactId));
     }
-    @PostMapping("/uploads/{uploadId}/like")
-    ApiResult<?>likeUpload(
-            @PathVariable(name = "uploadId") Long uploadId,
-            @RequestParam(name = "memberId") Long memberId){
-        return ApiResult.onSuccess(uploadService.postLike(uploadId,memberId));
-    }
-    @GetMapping("/uploadGraphs/{uploadGraphId}")
-    ApiResult<?>getUploadGraph(@PathVariable(name = "uploadGraphId") Long uploadGraphId){
-        return ApiResult.onSuccess(uploadQueryService.getUploadGraph(uploadGraphId));
-    }
-    @GetMapping("/{artifactId}/uploads/famous")
+
+    @GetMapping("/{artifactId}/uploads/weight")
     ApiResult<?> getMaxWeightGraph(@PathVariable(name="artifactId") Long artifactId){
         return ApiResult.onSuccess(uploadQueryService.getMaxWeightPathDto(artifactId));
-    }
-    @GetMapping("/{artifactId}/uploads/{uploadId}")
-    ApiResult<?> getUploadDto(
-            @PathVariable(name="artifactId") Long artifactId,
-            @PathVariable(name="uploadId") Long uploadId,
-            @RequestParam(name="prevUploadId",required=false, defaultValue="0") Long prevUploadId){
-
-        if(prevUploadId != 0)
-            return ApiResult.onSuccess(uploadQueryService.getUploadDtoByFetchWeight(prevUploadId,uploadId));
-        else return ApiResult.onSuccess(uploadQueryService.getUploadDto(uploadId));
     }
 
 }
