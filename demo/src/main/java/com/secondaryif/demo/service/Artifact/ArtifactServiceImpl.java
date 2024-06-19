@@ -36,6 +36,7 @@ public class ArtifactServiceImpl implements ArtifactService{
 
         Upload root = Upload.builder()
                 .artifact(newArtifact)
+                .member(getMember)
                 .content("루트 페이지입니다.")
                 .build();
         uploadRepository.save(root);
