@@ -1,15 +1,6 @@
 import styled from "styled-components";
 
-export const ArtifactInform = styled.div`
-  display: flex;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  margin: 1rem;
-  height: 40vh;
-`;
-
-export const LastWatching = styled.section`
+export const LastWatchingContainer = styled.section`
   background-color: #ffffff;
   padding: 15px;
   border-radius: 5px;
@@ -65,5 +56,3 @@ export const ResetButton = styled.button`
     background-color: #a61e25;
   }
 `;
-
-export const FamousRoute = styled.div``;

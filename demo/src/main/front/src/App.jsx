@@ -1,7 +1,7 @@
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import Artifact from "./components/Artifact/Novel";
+import Artifact from "./components/Artifact/Artifact";
 
 function App() {
   return (

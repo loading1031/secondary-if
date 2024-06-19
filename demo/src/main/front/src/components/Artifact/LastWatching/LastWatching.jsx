@@ -1,10 +1,8 @@
 import { useSelector } from "react-redux";
 import axios from "axios";
 import {
-  ArtifactInform,
   Content,
-  FamousRoute,
-  LastWatching,
+  LastWatchingContainer,
   NextBox,
   NextItem,
   ResetButton,
@@ -12,7 +10,7 @@ import {
 } from "./styles";
 import { useEffect, useState } from "react";
 
-function Artifact() {
+function LastWatching() {
   const artifact = useSelector((state) => state.search.finalSearchRes);
   const [uploadList, setUploadList] = useState([]);
   const [lastWatching, setLastWatching] = useState(null);
@@ -67,8 +65,7 @@ function Artifact() {
   };
 
   return (
-    <ArtifactInform>
-      <LastWatching>
+      <LastWatchingContainer>
         <ResetButton onClick={resetView}>Reset</ResetButton>
         {artifact && lastWatching ? (
           <>
@@ -93,9 +90,7 @@ function Artifact() {
             <Content>내용</Content>
           </>
         )}
-      </LastWatching>
-      <FamousRoute></FamousRoute>
-    </ArtifactInform>
+      </LastWatchingContainer>
   );
 }
-export default Artifact;
+export default LastWatching;
