@@ -38,16 +38,14 @@ public class UploadQueryServiceImpl implements UploadQueryService{
     private final UploadGraphRepository uploadGraphRepository;
     private final CustomUploadGraphRepository customUploadGraphRepository;
     @Override
-    public UploadResDto.GetUploadListResDto getOriginUploadList(Long artifactId) {
-        return UploadConverter.toGetListResDto(
-                uploadRepository.findAllByArtifactId(artifactId).stream()
+    public List<UploadResDto.GetUploadResDto> getOriginUploadList(Long artifactId) {
+        return uploadRepository.findAllByArtifactId(artifactId).stream()
                         .filter(upload -> upload.getMember() != null &&
                                 upload.getMember().getId().equals(upload.getArtifact().getMember().getId()))
                         .map(upload ->
                             UploadConverter.toGetResDto(upload,userLikeRepository.countByUpload(upload))
                         )
-                        .toList()
-        );
+                        .toList();
     }
     @Override
     public UploadGraph getUploadGraph(Long uploadGraphId) {
@@ -113,13 +111,11 @@ public class UploadQueryServiceImpl implements UploadQueryService{
         return UploadConverter.toGetResDto(end, userLikeRepository.countByUpload(end));
     }
     @Override
-    public UploadResDto.GetUploadListResDto getUploadList(Long artifactId) {
-        return UploadConverter.toGetListResDto(
-                uploadRepository.findAllByArtifactId(artifactId).stream()
+    public List<UploadResDto.GetUploadResDto> getUploadList(Long artifactId) {
+        return uploadRepository.findAllByArtifactId(artifactId).stream()
                         .filter(upload -> upload.getMember() != null)
                         .map(upload -> UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload)))
-                        .toList()
-        );
+                        .toList();
     }
     private Path getMaxWeightPath(Long artifactId) {
         Artifact artifact = artifactQueryService.getArtifact(artifactId);

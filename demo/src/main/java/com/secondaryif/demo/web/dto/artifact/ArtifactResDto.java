@@ -28,7 +28,7 @@ public class ArtifactResDto {
         Long artifactId;
         String title;
         String author;
-        UploadResDto.GetUploadListResDto totalUploadResDtoList;
+        List<UploadResDto.GetUploadResDto> getUploadResDtoList;
     }
     @Builder
     @Getter
