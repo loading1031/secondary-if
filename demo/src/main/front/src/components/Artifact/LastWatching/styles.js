@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const LastWatchingContainer = styled.section`
   background-color: #ffffff;
-  padding: 15px;
+  padding: 1rem;
+  margin: 1rem;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 50%;
 `;
 
 export const Title = styled.h1`

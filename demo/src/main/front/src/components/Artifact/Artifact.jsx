@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import LastWatching from "./LastWatching/LastWatching";
-import FamousRoute from "./FamousRoute/FamousRoute";
+import TheMostWatchingRoute from "./FamousRoute/TheMostWatchingRoute";
 
 const ArtifactInform = styled.div`
   display: flex;
-  padding: 20px;
+  justify-content: space-between;
   background-color: #f0f0f0;
   border-radius: 8px;
   margin: 1rem;
@@ -15,7 +15,7 @@ function Artifact() {
   return (
     <ArtifactInform>
       <LastWatching />
-      <FamousRoute />
+      <TheMostWatchingRoute/>
     </ArtifactInform>
   );
 }
