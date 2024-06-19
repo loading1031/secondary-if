@@ -5,6 +5,7 @@ import com.secondaryif.demo.domain.Member;
 import com.secondaryif.demo.web.dto.artifact.ArtifactReqDto;
 import com.secondaryif.demo.web.dto.artifact.ArtifactResDto;
 import com.secondaryif.demo.web.dto.upload.UploadResDto;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -37,6 +38,16 @@ public class ArtifactConverter {
                 .title(artifact.getTitle())
                 .author(artifact.getMember().getName())
                 .totalUploadResDtoList(uploadResDtos)
+                .build();
+    }
+
+    public static ArtifactResDto.SearchArtifacts geSearchList(Page<Artifact> artifacts){
+        return ArtifactResDto.SearchArtifacts.builder()
+                .postResDtos(getArtDtoList(artifacts.toList()))
+                .isFirst(artifacts.isFirst())
+                .isLast(artifacts.isLast())
+                .listSize(artifacts.getTotalPages())
+                .totalElements(artifacts.getTotalElements())
                 .build();
     }
 }

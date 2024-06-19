@@ -30,4 +30,17 @@ public class ArtifactResDto {
         String author;
         UploadResDto.GetUploadListResDto totalUploadResDtoList;
     }
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SearchArtifacts{
+        List<PostResDto> postResDtos;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
 }
