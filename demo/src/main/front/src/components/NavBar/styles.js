@@ -9,7 +9,7 @@ export const StyledNavi = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem;
+  padding: 0.25rem;
   width: 100%;
 `;
 export const NaviTitle = styled.h3`
