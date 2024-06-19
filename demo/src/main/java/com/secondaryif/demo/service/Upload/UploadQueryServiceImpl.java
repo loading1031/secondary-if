@@ -53,10 +53,10 @@ public class UploadQueryServiceImpl implements UploadQueryService{
                 ()->new GeneralException(ErrorStatus._NOT_FOUND));
     }
     @Override
-    public UploadPathDto.PathDto getMaxWeightPathDto(Long artifactId) {
+    public UploadPathDto.PathDto getMaxWeightPathDto(Long artifactId, Long endUploadId) {
         Map<String, UploadPathDto.NodeDto> nodeDtoMap = new HashMap<>();
         List<UploadPathDto.RelationshipDto> relationshipDtos = new ArrayList<>();
-        Path path = getMaxWeightPath(artifactId);
+        Path path = getMaxWeightPath(artifactId, endUploadId);
 
         for (Node node : path.nodes()) {
             // node의 properties에서 uploadId 추출 (예시에서는 'id' 키 사용)
@@ -117,12 +117,12 @@ public class UploadQueryServiceImpl implements UploadQueryService{
                         .map(upload -> UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload)))
                         .toList();
     }
-    private Path getMaxWeightPath(Long artifactId) {
+    private Path getMaxWeightPath(Long artifactId, Long endUploadId) {
         Artifact artifact = artifactQueryService.getArtifact(artifactId);
         List<Upload> uploadList = artifact.getUploadList();
-
+        log.info("uploadList.size():{}",uploadList.size());
         return customUploadGraphRepository.findMaxWeightPath(
-                uploadList.get(0).getId(),uploadList.get(uploadList.size() - 1).getId()
+                uploadList.get(0).getId(),endUploadId
         ).orElseThrow(()-> new GeneralException(ErrorStatus._NOT_FOUND));
     }
     private UploadRelationship getRelationship(UploadGraph node,Long endId ){

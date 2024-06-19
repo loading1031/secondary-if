@@ -14,5 +14,5 @@ public interface UploadQueryService {
     List<UploadResDto.GetUploadResDto> getUploadList(Long artifactId);
     List<UploadResDto.GetUploadResDto> getOriginUploadList(Long artifactId);
     UploadGraph getUploadGraph(Long uploadGraphId);
-    UploadPathDto.PathDto getMaxWeightPathDto(Long artifactId);
+    UploadPathDto.PathDto getMaxWeightPathDto(Long artifactId,Long endUploadId);
 }
