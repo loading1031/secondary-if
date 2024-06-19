@@ -7,7 +7,7 @@ export const HeadForm = styled.form`
   background-color: #666666;
   align-items: center;
   width: 100vw;
-  height: 35vw;
+  height: 35%;
   box-sizing: border-box; // 패딩을 포함한 너비 설정
 `;
 
@@ -37,7 +37,7 @@ export const Descript = styled.small`
 // Search: 검색 입력 필드
 export const Search = styled.input`
   width: 50vw;
-  padding: 8px;
+  padding: 0.5rem;
   margin: 1.5rem 0; // 상하 여백
   border: 1px solid #ddd;
   border-radius: 4px; // 경계선 둥글게
@@ -56,5 +56,32 @@ export const SubmitBtn = styled.button`
 
   &:hover {
     background-color: darkblue; // 마우스 오버 시 배경색 변경
+  }
+`;
+
+export const SuggestionBox = styled.div`
+  position: absolute;
+  top: 15rem;
+  width: 50vw;
+  background: rgba(255, 255, 255, 0.9); // 반투명 배경
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  z-index: 100; // z-index를 높게 설정하여 다른 요소 위에 표시
+`;
+
+export const SuggestionItem = styled.li`
+  font-size: 0.7rem;
+  padding: 10px 1rem;
+  list-style: none;
+  border-bottom: 1px solid #ccc;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
   }
 `;
