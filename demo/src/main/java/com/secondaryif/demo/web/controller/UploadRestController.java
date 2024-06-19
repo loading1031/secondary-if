@@ -19,8 +19,8 @@ public class UploadRestController {
             @RequestParam(name = "memberId") Long memberId){
         return ApiResult.onSuccess(uploadService.postLike(uploadId,memberId));
     }
-    @GetMapping("/{uploadGraphId}")
-    ApiResult<?>getUploadGraph(@PathVariable(name = "uploadGraphId") Long uploadGraphId){
+    @GetMapping("/{uploadId}/graph")
+    ApiResult<?>getUploadGraph(@PathVariable(name = "uploadId") Long uploadGraphId){
         return ApiResult.onSuccess(uploadQueryService.getUploadGraph(uploadGraphId));
     }
     @GetMapping("/{uploadId}")
