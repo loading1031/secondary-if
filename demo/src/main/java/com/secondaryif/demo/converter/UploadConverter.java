@@ -20,6 +20,7 @@ public class UploadConverter {
         return UploadResDto.PostUploadResDto.builder()
                 .uploadId(upload.getId())
                 .writer(upload.getMember().getName())
+                .content(upload.getContent())
                 .createdAt(upload.getCreatedAt())
                 .build();
     }

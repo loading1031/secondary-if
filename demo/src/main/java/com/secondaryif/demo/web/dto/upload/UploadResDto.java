@@ -16,6 +16,7 @@ public class UploadResDto {
     public static class PostUploadResDto{
         Long uploadId;
         String writer;
+        String content;
         LocalDateTime createdAt;
     }
     @Builder
