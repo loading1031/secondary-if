@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { setFinalSearchRes } from "../../redux/searchSlice";
 import {
   HeadFieldset,
   Descript,
@@ -14,6 +16,7 @@ import {
 function Header() {
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
@@ -33,8 +36,19 @@ function Header() {
       }
     }, 500); // 500ms 후에 실행
   }, [input]);
+
+  const handleSearch = (event) => {
+    event.preventDefault(); // 폼 제출 기본 동작 방지
+    const matchedSuggestion = suggestions.find(
+      (suggestion) => suggestion.title.toLowerCase() === input.toLowerCase()
+    );
+    if (matchedSuggestion) {
+      dispatch(setFinalSearchRes(matchedSuggestion)); // 예: matchedSuggestion을 전체 객체로 저장
+    }
+  };
+
   return (
-    <HeadForm>
+    <HeadForm onSubmit={handleSearch}>
       <HeadFieldset>
         <TitleLegend>Welcome to Our 2nd Novel</TitleLegend>
         <Descript>Discover behind epiosde</Descript>
