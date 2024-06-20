@@ -73,7 +73,9 @@ public class UploadQueryServiceImpl implements UploadQueryService{
         Path path = getMaxWeightPath(artifactId, endUploadId);
 
         for (Node node : path.nodes()) {
+            log.info("nodeId:{}",node.id());
             // node의 properties에서 uploadId 추출 (예시에서는 'id' 키 사용)
+            //Todo:
             Map<String, Object> properties = node.asMap();
             Long uploadId = (Long) properties.get("id");  // 적절한 키로 변경 필요
             // userLikeRepository를 사용해 해당 uploadId의 좋아요 수 조회
