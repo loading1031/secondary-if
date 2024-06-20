@@ -13,6 +13,7 @@ public interface UploadQueryService {
     UploadResDto.GetUploadResDto getUploadDtoByFetchWeight(Long startId, Long endId);
     List<UploadResDto.GetUploadResDto> getUploadList(Long artifactId);
     List<UploadResDto.GetUploadResDto> getOriginUploadList(Long artifactId);
+    List<UploadResDto.GetUploadResDto> getTotalUploadGraphList(Long startUploadId);
     UploadGraph getUploadGraph(Long uploadGraphId);
     UploadPathDto.PathDto getMaxWeightPathDto(Long artifactId,Long endUploadId);
 }

@@ -39,6 +39,10 @@ public class ArtifactRestController {
     ApiResult<?>getArtWithTotalUploadList(@PathVariable(name = "artifactId") Long artifactId){
         return ApiResult.onSuccess(artifactService.getArtifactWithTotalUploads(artifactId));
     }
+    @GetMapping("/{artifactId}/graph")
+    ApiResult<?>getArtWithTotalUploadGraphList(@PathVariable(name = "artifactId") Long artifactId){
+        return ApiResult.onSuccess(artifactService.getArtifactWithTotalUploadGraphs(artifactId));
+    }
     @GetMapping("/{artifactId}/uploads/{endUploadId}/weight")
     ApiResult<?> getMaxWeightGraph(
             @PathVariable(name="artifactId") Long artifactId,

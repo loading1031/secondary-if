@@ -66,7 +66,7 @@ public class UploadServiceImpl implements UploadService{
     }
 
     @Override
-    @Transactional("neo4jTransactionManager")
+    @Transactional("chainedTransactionManager")
     public UploadResDto.GetUploadResDto patchUploadChild(Long uploadId, Long childId) {
         UploadGraph uploadGraph = getUploadGraph(uploadId);
         UploadGraph childGraph = getUploadGraph(childId);
@@ -75,6 +75,7 @@ public class UploadServiceImpl implements UploadService{
         uploadGraphRepository.save(uploadGraph);
 
         Upload upload = getUpload(uploadId);
+        getUpload(childId).addParentNextUpload(upload);
         return UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload));
     }
 

@@ -64,6 +64,13 @@ public class ArtifactServiceImpl implements ArtifactService{
                 getArtifact(artifactId));
     }
 
+    @Override
+    public ArtifactResDto.GetDetailsDto getArtifactWithTotalUploadGraphs(Long artifactId) {
+        return ArtifactConverter.getDetailsDto(
+                uploadQueryService.getTotalUploadGraphList(artifactId),
+                getArtifact(artifactId));
+    }
+
     private Artifact getArtifact(Long artifactId) {
         return artifactRepository.findById(artifactId).orElseThrow(
                 () -> new GeneralException(ErrorStatus._BAD_REQUEST));

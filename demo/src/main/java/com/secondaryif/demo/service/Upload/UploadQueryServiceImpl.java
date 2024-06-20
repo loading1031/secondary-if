@@ -47,6 +47,20 @@ public class UploadQueryServiceImpl implements UploadQueryService{
                         )
                         .toList();
     }
+
+    @Override
+    public List<UploadResDto.GetUploadResDto> getTotalUploadGraphList(Long artifactId) {
+        Long firstUploadId = uploadRepository.findFirstByArtifactId(artifactId).orElseThrow(
+                () -> new GeneralException(ErrorStatus._NOT_FOUND)).getId();
+        log.info("firstUploadId:{}",firstUploadId);
+        return uploadGraphRepository.findAllConnectedNodes(firstUploadId).stream()
+                .map(uploadGraph -> {
+                    log.info("uploadGraph:{}",uploadGraph.getId());
+            Upload upload = getUpload(uploadGraph.getId());
+            return UploadConverter.toGetResDto(upload, userLikeRepository.countByUpload(upload));
+            }).toList();
+    }
+
     @Override
     public UploadGraph getUploadGraph(Long uploadGraphId) {
         return uploadGraphRepository.findById(uploadGraphId).orElseThrow(
