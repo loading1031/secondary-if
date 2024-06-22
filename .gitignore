@@ -1,8 +1,17 @@
+# db
+neodb/conf
+neodb/logs
+neodb/data
+
+# mydb
+mydb/store
+
 # mac
 .DS_Store
 
-# vscode
+# IDE
 .vscode
+.idea
 
 # Compiled class file
 *.class
