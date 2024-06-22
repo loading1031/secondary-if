@@ -11,14 +11,14 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER}
   neo4j:
-    uri: ${SPRING_NEO4J_URL}
+    uri: ${SPRING_NEO4J_URI}
     authentication:
       username: ${SPRING_NEO4J_AUTHENTICATION_USERNAME}
       password: ${SPRING_NEO4J_AUTHENTICATION_PASSWORD}
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: none
     show-sql: true
