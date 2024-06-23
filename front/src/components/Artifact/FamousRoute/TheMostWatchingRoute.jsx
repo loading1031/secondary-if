@@ -17,7 +17,7 @@ function TheMostWatchingRoute() {
     const fetchUploads = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/artifacts/${artifact.artifactId}/uploads/${endUploadId}/weight?`
+          `/api/artifacts/${artifact.artifactId}/uploads/${endUploadId}/weight?`
         );
         setMaxWeightRoute(response.data.result); // API 호출 결과로 상태 업데이트
         setTotalUploads([]);
@@ -38,7 +38,7 @@ function TheMostWatchingRoute() {
     const fetchTotalUploads = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/artifacts/${artifact.artifactId}/graph`
+          `/api/artifacts/${artifact.artifactId}/graph`
         );
         setTotalUploads(response.data.result.getUploadResDtoList); // API 호출 결과로 상태 업데이트
       } catch (error) {

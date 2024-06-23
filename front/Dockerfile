@@ -12,4 +12,5 @@ RUN npm run build || (cat npm-debug.log; exit 1)
 FROM nginx
 # build 스테이지에서 생성된 dist 디렉토리를 nginx의 html 디렉토리에 복사
 COPY --from=build /app/dist /usr/share/nginx/html
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

@@ -25,7 +25,7 @@ function Header() {
         return; // 입력 값이 없는 경우 요청을 보내지 않습니다.
       }
 
-      const endpoint = `http://localhost:8080/artifacts/search?title=${input}`;
+      const endpoint = `/api/artifacts/search?title=${input}`;
 
       try {
         const response = await axios.get(endpoint);

@@ -13,6 +13,7 @@ services:
       - ./mydb/init.sql/:/docker-entrypoint-initdb.d/init.sql
     networks:
       - network
+
   neodb:
     build:
       context: ./neodb
@@ -27,7 +28,8 @@ services:
       - ./neodb/conf:/var/lib/neo4j/conf
     networks:
       - network
-  server:
+
+  backend:
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -49,5 +51,16 @@ services:
     networks:
       - network
 
+  frontend:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    networks:
+      - network
 networks:
   network:

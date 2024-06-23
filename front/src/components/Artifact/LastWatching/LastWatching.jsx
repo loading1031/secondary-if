@@ -24,7 +24,7 @@ function LastWatching() {
     const fetchUploads = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/artifacts/${artifact.artifactId}`
+          `/api/artifacts/${artifact.artifactId}`
         );
         setUploadList(response.data.result.getUploadResDtoList); // API 호출 결과로 상태 업데이트
         setLastWatching(response.data.result.getUploadResDtoList[0]); // 초기값 설정
@@ -43,7 +43,7 @@ function LastWatching() {
     }
     try {
       const response = await axios.get(
-        `http://localhost:8080/uploads/${uploadId}?prevUploadId=${lastWatching.uploadId}`
+        `/api/uploads/${uploadId}?prevUploadId=${lastWatching.uploadId}`
       );
       setRecords((prevRecords) => [...prevRecords, response.data.result]); // Todo: lastWatching 배열 추가
       setLastWatching(response.data.result); // API 호출 결과로 상태 업데이트
