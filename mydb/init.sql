@@ -1,1 +1,1 @@
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Todwnl@7706';
+CREATE DATABASE IF NOT EXISTS mydb;

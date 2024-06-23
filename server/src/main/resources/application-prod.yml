@@ -20,11 +20,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     open-in-view: true
 
 logging:
   level:
-    '[com.example.server]': INFO
+    '[com.secondaryif.server]': INFO
     '[org.hibernate.type]': TRACE
