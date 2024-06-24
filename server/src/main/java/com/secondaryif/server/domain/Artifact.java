@@ -22,12 +22,11 @@ public class Artifact extends BaseEntity {
     private Long id;
     @Column(nullable = false, length = 20)
     private String title;
-//    @Column(nullable = false)
-//    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @Builder.Default
     @OneToMany(mappedBy = "artifact", cascade = CascadeType.ALL)
     private List<Upload> uploadList = new ArrayList<>();
 

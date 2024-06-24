@@ -23,6 +23,7 @@ public class Upload extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "upload_next_uploads", // 조인 테이블 이름
