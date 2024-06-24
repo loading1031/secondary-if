@@ -6,6 +6,9 @@ neodb/data
 # mydb
 mydb/store
 
+# key
+key/
+
 # mac
 .DS_Store
 
