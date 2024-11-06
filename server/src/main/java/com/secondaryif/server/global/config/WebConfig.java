@@ -1,4 +1,4 @@
-package com.secondaryif.server.config;
+package com.secondaryif.server.global.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

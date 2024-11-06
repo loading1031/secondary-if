@@ -1,4 +1,4 @@
-package com.secondaryif.server.config;
+package com.secondaryif.server.global.config;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.neo4j.driver.Driver;

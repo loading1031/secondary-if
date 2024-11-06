@@ -1,8 +1,8 @@
-package com.secondaryif.server.apiPayload.exception;
+package com.secondaryif.server.global.apiPayload.exception;
 
-import com.secondaryif.server.apiPayload.ApiResult;
-import com.secondaryif.server.apiPayload.code.ErrorReasonDto;
-import com.secondaryif.server.apiPayload.code.status.ErrorStatus;
+import com.secondaryif.server.global.apiPayload.ApiResult;
+import com.secondaryif.server.global.apiPayload.code.ErrorReasonDto;
+import com.secondaryif.server.global.apiPayload.code.status.ErrorStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

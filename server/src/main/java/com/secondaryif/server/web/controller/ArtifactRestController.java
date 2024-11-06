@@ -1,6 +1,6 @@
 package com.secondaryif.server.web.controller;
 
-import com.secondaryif.server.apiPayload.ApiResult;
+import com.secondaryif.server.global.apiPayload.ApiResult;
 import com.secondaryif.server.service.Artifact.ArtifactQueryService;
 import com.secondaryif.server.service.Artifact.ArtifactService;
 import com.secondaryif.server.service.Upload.UploadQueryService;

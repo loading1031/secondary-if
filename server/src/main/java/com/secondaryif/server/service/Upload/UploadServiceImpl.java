@@ -1,7 +1,7 @@
 package com.secondaryif.server.service.Upload;
 
-import com.secondaryif.server.apiPayload.code.status.ErrorStatus;
-import com.secondaryif.server.apiPayload.exception.GeneralException;
+import com.secondaryif.server.global.apiPayload.code.status.ErrorStatus;
+import com.secondaryif.server.global.apiPayload.exception.GeneralException;
 import com.secondaryif.server.converter.UploadConverter;
 import com.secondaryif.server.converter.UploadGraphConverter;
 import com.secondaryif.server.domain.Artifact;

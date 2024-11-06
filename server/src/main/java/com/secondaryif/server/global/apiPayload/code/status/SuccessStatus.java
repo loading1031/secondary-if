@@ -1,7 +1,7 @@
-package com.secondaryif.server.apiPayload.code.status;
+package com.secondaryif.server.global.apiPayload.code.status;
 
-import com.secondaryif.server.apiPayload.code.BaseCode;
-import com.secondaryif.server.apiPayload.code.ReasonDto;
+import com.secondaryif.server.global.apiPayload.code.BaseCode;
+import com.secondaryif.server.global.apiPayload.code.ReasonDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

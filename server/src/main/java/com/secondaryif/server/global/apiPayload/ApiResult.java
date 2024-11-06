@@ -1,11 +1,12 @@
-package com.secondaryif.server.apiPayload;
+package com.secondaryif.server.global.apiPayload;
 
-import com.secondaryif.server.apiPayload.code.BaseCode;
-import com.secondaryif.server.apiPayload.code.BaseErrorCode;
+import com.secondaryif.server.global.apiPayload.code.BaseCode;
+import com.secondaryif.server.global.apiPayload.code.BaseErrorCode;
 import com.secondaryif.server.apiPayload.code.status.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.secondaryif.server.global.apiPayload.code.status.SuccessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

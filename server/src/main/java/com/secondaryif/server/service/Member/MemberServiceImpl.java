@@ -1,7 +1,7 @@
 package com.secondaryif.server.service.Member;
 
-import com.secondaryif.server.apiPayload.code.status.ErrorStatus;
-import com.secondaryif.server.apiPayload.exception.GeneralException;
+import com.secondaryif.server.global.apiPayload.code.status.ErrorStatus;
+import com.secondaryif.server.global.apiPayload.exception.GeneralException;
 import com.secondaryif.server.converter.MemberConverter;
 import com.secondaryif.server.domain.Member;
 import com.secondaryif.server.repository.MemberRepository;

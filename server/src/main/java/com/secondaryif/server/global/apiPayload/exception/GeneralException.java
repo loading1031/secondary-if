@@ -1,7 +1,7 @@
-package com.secondaryif.server.apiPayload.exception;
+package com.secondaryif.server.global.apiPayload.exception;
 
-import com.secondaryif.server.apiPayload.code.BaseErrorCode;
-import com.secondaryif.server.apiPayload.code.ErrorReasonDto;
+import com.secondaryif.server.global.apiPayload.code.BaseErrorCode;
+import com.secondaryif.server.global.apiPayload.code.ErrorReasonDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

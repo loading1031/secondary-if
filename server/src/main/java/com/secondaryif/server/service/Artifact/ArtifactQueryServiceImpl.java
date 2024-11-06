@@ -1,7 +1,7 @@
 package com.secondaryif.server.service.Artifact;
 
-import com.secondaryif.server.apiPayload.code.status.ErrorStatus;
-import com.secondaryif.server.apiPayload.exception.GeneralException;
+import com.secondaryif.server.global.apiPayload.code.status.ErrorStatus;
+import com.secondaryif.server.global.apiPayload.exception.GeneralException;
 import com.secondaryif.server.converter.ArtifactConverter;
 import com.secondaryif.server.domain.Artifact;
 import com.secondaryif.server.repository.ArtifactRepository;

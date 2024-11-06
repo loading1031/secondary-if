@@ -1,4 +1,4 @@
-package com.secondaryif.server.apiPayload.code;
+package com.secondaryif.server.global.apiPayload.code;
 
 public interface BaseCode {
     public ReasonDto getReason();
