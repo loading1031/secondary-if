@@ -12,6 +12,8 @@ import com.secondaryif.server.repository.RefreshTokenRepository;
 import com.secondaryif.server.web.dto.member.MemberReqDto;
 import com.secondaryif.server.web.dto.member.MemberResDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,11 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final RedisTemplate<String, String> redisTemplate; // RedisTemplate 주입
+
+    // YAML에 설정된 만료 시간 값 주입
+    @Value("${spring.data.redis.token-expiration}")
+    private long tokenExpiration;
 
     @Override
     @Transactional
@@ -46,6 +54,10 @@ public class MemberServiceImpl implements MemberService{
                 .value(jwtTokenDTO.getRefreshToken())
                 .build();
         refreshTokenRepository.save(refreshToken);
+
+        // JWT를 Redis에 저장
+        String key = authentication.getName();
+        redisTemplate.opsForValue().set(key, jwtTokenDTO.getAccessToken(), tokenExpiration, TimeUnit.MILLISECONDS);
 
         return jwtTokenDTO;
     }

@@ -31,6 +31,9 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	// mysql
 	runtimeOnly 'mysql:mysql-connector-java:8.0.28'
+	// redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive' // 비동기 방식의 Redis 사용 시
 
 	/* JWT */
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
