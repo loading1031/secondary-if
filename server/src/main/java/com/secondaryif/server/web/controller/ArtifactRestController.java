@@ -55,4 +55,16 @@ public class ArtifactRestController {
     @Operation(description = "최대 가중치 그래프 탐색 방식의 업로드 조회")
     ApiResult<?> getMaxWeightGraph(
             @PathVariable(name="artifactId") Long artifactId,
-            @PathVariabl
+            @PathVariable(name="endUploadId") Long endUploadId){
+        return ApiResult.onSuccess(uploadQueryService.getMaxWeightPathDto(artifactId,endUploadId));
+    }
+    @GetMapping("/search")
+    @Operation(description = "작품 검색")
+    ApiResult<?> searchArtifacts(
+            @RequestParam(name="title",required = false) String title,
+            @RequestParam(name="author",required = false) String author,
+            @RequestParam(name="page", defaultValue= "0") Integer page){
+        return ApiResult.onSuccess(artifactQueryService.searchArtifactList(title,author,page));
+    }
+
+}
