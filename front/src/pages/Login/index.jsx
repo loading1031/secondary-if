@@ -25,7 +25,7 @@ function Login() {
   const btnDisable = () => {
     return (
       isSubmitting ||
-      !formData.username ||
+      !formData.name ||
       Object.keys(errors).length > 0
     );
   };
@@ -41,8 +41,8 @@ function Login() {
         data
       );
       if (loginResponse.status === 200){
-        alert(`${loginResponse.data.username}님 환영합니다.`)
-        const token = loginResponse.data.token; // Getting token from response
+        alert(`${data.name}님 환영합니다.`)
+        const token = loginResponse.data.accessToken; // Getting token from response
         handleAuthentication(token);
         navigate('/');
       }
@@ -66,18 +66,18 @@ function Login() {
       <StyledFieldset>
         <StyledLegend>로그인 페이지</StyledLegend>
         <StyledInput
-          id="username"
+          id="name"
           type="text"
           placeholder="아이디"
           aria-invalid={
             isSubmitted ? (errors.id ? "true" : "false") : undefined
           }
-          {...register("username", {
+          {...register("name", {
             required: "이 필수 입력입니다.",
           })}
         />
-        {errors.username && (
-          <WarningP role="alert">{errors.username.message}</WarningP>
+        {errors.name && (
+          <WarningP role="alert">{errors.name.message}</WarningP>
         )}
         {errors.password && (
           <WarningP role="alert">{errors.password.message}</WarningP>
