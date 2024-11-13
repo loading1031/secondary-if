@@ -15,6 +15,12 @@ spring:
     authentication:
       username: ${SPRING_NEO4J_AUTHENTICATION_USERNAME}
       password: ${SPRING_NEO4J_AUTHENTICATION_PASSWORD}
+  data:
+    redis:
+      host: redis   # Docker Compose에서 설정한 Redis 서비스 이름 사용
+      port: 6379    # 기본 Redis 포트
+      timeout: 6000 # 연결 타임아웃 (옵션)
+      token-expiration: 3600000
   jpa:
     properties:
       hibernate:
@@ -28,3 +34,20 @@ logging:
   level:
     '[com.secondaryif.server]': INFO
     '[org.hibernate.type]': TRACE
+jwt:
+  # secret: ${JWT_SECRET_KEY}
+  secret: 
+springdoc:
+  use-fqn: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  api-docs:
+    groups:
+      enabled: true
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    disable-swagger-default-url: true
+    doc-expansion: none
+  paths-to-match:
+    - /**
