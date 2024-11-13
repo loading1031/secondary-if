@@ -1,7 +1,6 @@
 package com.secondaryif.server.web.controller;
 
 import com.secondaryif.server.global.apiPayload.ApiResult;
-import com.secondaryif.server.global.security.dto.CustomUserDetails;
 import com.secondaryif.server.global.security.service.JwtTokenProvider;
 import com.secondaryif.server.service.Upload.UploadQueryService;
 import com.secondaryif.server.service.Upload.UploadService;
@@ -21,13 +20,9 @@ public class UploadRestController {
 
     @PostMapping("/{uploadId}/like")
     @Operation(description = "로그인 및 회원가입")
-    ApiResult<?> likeUpload(
-            @RequestHeader("Authorization") String token,
-            @PathVariable(name = "uploadId") Long uploadId){
-        CustomUserDetails customUserDetails = (CustomUserDetails) jwtTokenProvider.getAuthentication(token).getPrincipal();
-        Long memberId = customUserDetails.getMemberId();
+    ApiResult<?> likeUpload(@PathVariable(name = "uploadId") Long uploadId){
 
-        return ApiResult.onSuccess(uploadService.postLike(uploadId,memberId));
+        return ApiResult.onSuccess(uploadService.postLike(uploadId));
     }
     @GetMapping("/{uploadId}/graph")
     @Operation(description = "그래프DB 업로드 조회")

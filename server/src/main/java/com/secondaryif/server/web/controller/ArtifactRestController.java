@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,16 +28,12 @@ public class ArtifactRestController {
     private final ArtifactQueryService artifactQueryService;
     private final UploadService uploadService;
     private final UploadQueryService uploadQueryService;
-    private final JwtTokenProvider jwtTokenProvider;
 
-    @PostMapping("/{memberId}/artifact")
+    @PostMapping("")
     @Operation(description = "작품 생성")
     ApiResult<ArtifactResDto.PostResDto> createArtifact(
-            @RequestHeader("Authorization") String token,
             @RequestBody @Valid ArtifactReqDto.PostDto request) {
-        CustomUserDetails customUserDetails = (CustomUserDetails) jwtTokenProvider.getAuthentication(token).getPrincipal();
-        Long memberId = customUserDetails.getMemberId();
-        return ApiResult.onSuccess(artifactService.postArtifact(request, memberId));
+        return ApiResult.onSuccess(artifactService.postArtifact(request));
     }
     @GetMapping("")
     @Operation(description = "작품 리스트 조회")
@@ -46,10 +43,9 @@ public class ArtifactRestController {
     @PostMapping("/{artifactId}/upload")
     @Operation(description = "업로드 등록")
     ApiResult<?>postUpload(
-            @RequestParam(name = "memberId")Long memberId,
             @PathVariable(name = "artifactId") Long artifactId,
             @RequestBody UploadReqDto.PostUploadDto request) {
-       return ApiResult.onSuccess(uploadService.postUpload(memberId, artifactId, request));
+       return ApiResult.onSuccess(uploadService.postUpload(artifactId, request));
     }
     @GetMapping("/{artifactId}/original")
     @Operation(description = "원작 조회")

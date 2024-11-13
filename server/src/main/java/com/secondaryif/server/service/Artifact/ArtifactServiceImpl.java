@@ -7,6 +7,7 @@ import com.secondaryif.server.domain.Artifact;
 import com.secondaryif.server.domain.Member;
 import com.secondaryif.server.domain.Upload;
 import com.secondaryif.server.domain.neo4j.UploadGraph;
+import com.secondaryif.server.global.security.util.SecurityUtil;
 import com.secondaryif.server.repository.ArtifactRepository;
 import com.secondaryif.server.repository.UploadRepository;
 import com.secondaryif.server.repository.neo4j.UploadGraphRepository;
@@ -29,7 +30,9 @@ public class ArtifactServiceImpl implements ArtifactService{
     private final UploadGraphRepository uploadGraphRepository;
     @Override
     @Transactional("chainedTransactionManager")
-    public ArtifactResDto.PostResDto postArtifact(ArtifactReqDto.PostDto request, Long memberId) {
+    public ArtifactResDto.PostResDto postArtifact(ArtifactReqDto.PostDto request) {
+        Long memberId = SecurityUtil.getMemberId();
+
         Member getMember = memberService.getMember(memberId);
         Artifact newArtifact = ArtifactConverter.toPost(request,getMember);
         newArtifact.setArtifact(getMember);

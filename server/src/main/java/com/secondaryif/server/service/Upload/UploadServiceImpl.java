@@ -9,6 +9,7 @@ import com.secondaryif.server.domain.Member;
 import com.secondaryif.server.domain.Upload;
 import com.secondaryif.server.domain.mapping.UserLike;
 import com.secondaryif.server.domain.neo4j.UploadGraph;
+import com.secondaryif.server.global.security.util.SecurityUtil;
 import com.secondaryif.server.repository.UploadRepository;
 import com.secondaryif.server.repository.mapping.UserLikeRepository;
 import com.secondaryif.server.repository.neo4j.UploadGraphRepository;
@@ -33,7 +34,8 @@ public class UploadServiceImpl implements UploadService{
     private final UploadGraphRepository uploadGraphRepository;
     @Override
     @Transactional("chainedTransactionManager")
-    public UploadResDto.PostUploadResDto postUpload(Long memberId, Long artifactId, UploadReqDto.PostUploadDto request) {
+    public UploadResDto.PostUploadResDto postUpload(Long artifactId, UploadReqDto.PostUploadDto request) {
+        Long memberId = SecurityUtil.getMemberId();
         Member writer = memberService.getMember(memberId);
         Artifact artifact = artifactQueryService.getArtifact(artifactId);
         // h2 저장
@@ -53,7 +55,9 @@ public class UploadServiceImpl implements UploadService{
     }
     @Override
     @Transactional
-    public UploadResDto.GetUploadResDto postLike(Long uploadId,Long memberId){
+    public UploadResDto.GetUploadResDto postLike(Long uploadId){
+        Long memberId = SecurityUtil.getMemberId();
+
         Member reader = memberService.getMember(memberId);
         Upload upload = getUpload(uploadId);
         UserLike userLike = UserLike.builder()
