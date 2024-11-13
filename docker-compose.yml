@@ -1,15 +1,12 @@
 services:
   mydb:
-    build:
-      context: ./mydb
-      dockerfile: Dockerfile
+    container_name: mydb
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
     ports:
       - 3306:3306
-    volumes:
-      - ./mydb/mysql-config/:/etc/mysql/conf.d  # MySQL 설정 파일을 로컬에서 관리
-      - ./mydb/init.sql/:/docker-entrypoint-initdb.d/init.sql
     networks:
       - network
 
@@ -21,10 +18,6 @@ services:
       - 7687:7687
       - 7474:7474
       - 7473:7473
-    volumes:
-      - ./neodb/data:/var/lib/neo4j/data
-      - ./neodb/logs:/var/lib/neo4j/logs
-      - ./neodb/conf:/var/lib/neo4j/conf
     networks:
       - network
 
@@ -34,6 +27,8 @@ services:
     restart: always
     ports: # 포트포워딩 - 로컬의 호스트가 6379 포트를 사용 중일 수 있으므로 6379 포트를 도커 컨테이너의 6379 포트로 포워딩해줌
       - "6379:6379"
+    networks:
+    - network  # 네트워크 추가
 
   backend:
     build:
