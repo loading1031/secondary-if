@@ -29,13 +29,6 @@ public class MemberRestController {
         return ApiResult.onSuccess(jwtTokenDTO);
     }
 
-    @PostMapping("/{memberId}/artifact")
-    @Operation(description = "작품 생성")
-    ApiResult<ArtifactResDto.PostResDto> createArtifact(
-            @PathVariable(name = "memberId") Long memberId,
-            @RequestBody @Valid ArtifactReqDto.PostDto request){
-        return ApiResult.onSuccess(artifactService.postArtifact(request, memberId));
-    }
     @GetMapping("")
     @Operation(description = "유저 리스트 조회")
     ApiResult<?> getMemberList(){

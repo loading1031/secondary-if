@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService{
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getName(),"N/A");
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        JwtTokenDTO jwtTokenDTO = jwtTokenProvider.generateToken(authentication);
+        JwtTokenDTO jwtTokenDTO = jwtTokenProvider.generateToken(authentication, member.getId());
 
         RefreshToken refreshToken = RefreshToken.builder()
                 .key(authentication.getName())

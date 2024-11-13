@@ -1,6 +1,7 @@
 package com.secondaryif.server.global.security.service;
 
 import com.secondaryif.server.global.apiPayload.code.status.ErrorStatus;
+import com.secondaryif.server.global.security.dto.CustomUserDetails;
 import com.secondaryif.server.global.security.dto.JwtTokenDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -32,7 +33,7 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public JwtTokenDTO generateToken(Authentication authentication) {
+    public JwtTokenDTO generateToken(Authentication authentication, Long memberId) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -43,6 +44,7 @@ public class JwtTokenProvider {
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
+                .claim("memberId", memberId) // memberId 추가
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
@@ -70,7 +72,8 @@ public class JwtTokenProvider {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        UserDetails principal = new User(claims.getSubject(), "", authorities);
+        Long memberId = claims.get("memberId", Long.class); // memberId 추출
+        UserDetails principal = new CustomUserDetails(memberId, claims.getSubject(), authorities);
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 

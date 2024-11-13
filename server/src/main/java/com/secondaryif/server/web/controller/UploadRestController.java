@@ -1,6 +1,8 @@
 package com.secondaryif.server.web.controller;
 
 import com.secondaryif.server.global.apiPayload.ApiResult;
+import com.secondaryif.server.global.security.dto.CustomUserDetails;
+import com.secondaryif.server.global.security.service.JwtTokenProvider;
 import com.secondaryif.server.service.Upload.UploadQueryService;
 import com.secondaryif.server.service.Upload.UploadService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,12 +17,16 @@ import org.springframework.web.bind.annotation.*;
 public class UploadRestController {
     private final UploadService uploadService;
     private final UploadQueryService uploadQueryService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/{uploadId}/like")
     @Operation(description = "로그인 및 회원가입")
     ApiResult<?> likeUpload(
-            @PathVariable(name = "uploadId") Long uploadId,
-            @RequestParam(name = "memberId") Long memberId){
+            @RequestHeader("Authorization") String token,
+            @PathVariable(name = "uploadId") Long uploadId){
+        CustomUserDetails customUserDetails = (CustomUserDetails) jwtTokenProvider.getAuthentication(token).getPrincipal();
+        Long memberId = customUserDetails.getMemberId();
+
         return ApiResult.onSuccess(uploadService.postLike(uploadId,memberId));
     }
     @GetMapping("/{uploadId}/graph")

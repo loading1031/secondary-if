@@ -1,14 +1,18 @@
 package com.secondaryif.server.web.controller;
 
 import com.secondaryif.server.global.apiPayload.ApiResult;
+import com.secondaryif.server.global.security.dto.CustomUserDetails;
+import com.secondaryif.server.global.security.service.JwtTokenProvider;
 import com.secondaryif.server.service.Artifact.ArtifactQueryService;
 import com.secondaryif.server.service.Artifact.ArtifactService;
 import com.secondaryif.server.service.Upload.UploadQueryService;
 import com.secondaryif.server.service.Upload.UploadService;
+import com.secondaryif.server.web.dto.artifact.ArtifactReqDto;
 import com.secondaryif.server.web.dto.artifact.ArtifactResDto;
 import com.secondaryif.server.web.dto.upload.UploadReqDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +27,17 @@ public class ArtifactRestController {
     private final ArtifactQueryService artifactQueryService;
     private final UploadService uploadService;
     private final UploadQueryService uploadQueryService;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @PostMapping("/{memberId}/artifact")
+    @Operation(description = "작품 생성")
+    ApiResult<ArtifactResDto.PostResDto> createArtifact(
+            @RequestHeader("Authorization") String token,
+            @RequestBody @Valid ArtifactReqDto.PostDto request) {
+        CustomUserDetails customUserDetails = (CustomUserDetails) jwtTokenProvider.getAuthentication(token).getPrincipal();
+        Long memberId = customUserDetails.getMemberId();
+        return ApiResult.onSuccess(artifactService.postArtifact(request, memberId));
+    }
     @GetMapping("")
     @Operation(description = "작품 리스트 조회")
     ApiResult<List<ArtifactResDto.PostResDto>>getArtList(){
