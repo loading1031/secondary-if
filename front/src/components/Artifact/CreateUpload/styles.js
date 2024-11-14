@@ -1,0 +1,71 @@
+import styled from "styled-components";
+
+export const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  width: 45%; // 각 폼 너비를 45%로 설정하여 가로로 나란히 배치 가능
+  box-sizing: border-box;
+  padding: 1rem; // 내부 여백 추가
+  border-radius: 10px;
+  margin: 1rem;
+`;
+
+export const StyledFieldset = styled.fieldset`
+  border: none; // 테두리 제거
+  position: relative; // 상대 위치 설정
+  margin-top: 5%;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding-top: 3%; // 상단 테두리와 legend 사이의 공간 확보
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center; // 세로 방향 중앙 정렬
+  text-align: left;
+`;
+
+export const StyledLegend = styled.legend`
+  padding: 0 5px; // 텍스트 주변 패딩
+  width: auto;
+  margin: 0px auto; // 자동 마진으로 중앙 정렬, absolute 없이
+  color: black;
+  font-size: 30px;
+`;
+
+export const StyledInput = styled.input`
+  margin: 5px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 20px;
+`;
+
+export const StyledContent = styled.textarea`
+  margin: 5px;
+  padding: 15px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  height: 150px; // 원하는 세로 크기 설정
+  resize: vertical; // 세로 크기 조절 가능 (none, both, vertical, horizontal 중 선택 가능)
+  font-size: 16px; // 텍스트 크기 설정
+`;
+
+export const WarningP = styled.small`
+  margin-left: 3%;
+  color: red;
+`;
+
+export const StyledButton = styled.button`
+  margin: 2vw 1vw;
+  padding: 20px;
+  font-size: 20px;
+  font-color: #22264c;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background-color: ${(props) => (props.disabled ? "" : "yellow")};
+`;
