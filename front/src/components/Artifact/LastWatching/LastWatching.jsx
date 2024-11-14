@@ -23,8 +23,14 @@ function LastWatching() {
 
     const fetchUploads = async () => {
       try {
+        const token = localStorage.getItem('token'); // 예시: 로컬 스토리지에서 토큰 가져오기
         const response = await axios.get(
-          `/api/artifacts/${artifact.artifactId}`
+          `/api/artifacts/${artifact.artifactId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setUploadList(response.data.result.getUploadResDtoList); // API 호출 결과로 상태 업데이트
         setLastWatching(response.data.result.getUploadResDtoList[0]); // 초기값 설정
@@ -38,12 +44,18 @@ function LastWatching() {
 
   const handleSearch = async (uploadId) => {
     if (!uploadId) {
-      console.error("Invalid uploadId provided:", uploadId);
+      console.error("Invalid uploadId provided");
       return; // 유효하지 않은 ID가 주어지면 함수 실행 중단
     }
     try {
+      const token = localStorage.getItem('token'); // 예시: 로컬 스토리지에서 토큰 가져오기
       const response = await axios.get(
-        `/api/uploads/${uploadId}?prevUploadId=${lastWatching.uploadId}`
+        `/api/uploads/${uploadId}?prevUploadId=${lastWatching.uploadId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setRecords((prevRecords) => [...prevRecords, response.data.result]); // Todo: lastWatching 배열 추가
       setLastWatching(response.data.result); // API 호출 결과로 상태 업데이트
@@ -70,7 +82,7 @@ function LastWatching() {
         {artifact && lastWatching ? (
           <>
             <Title>{artifact.title}</Title>
-            <Content>{lastWatching.content}</Content>
+            <Content>uploadId: {lastWatching.uploadId} 내용: {lastWatching.content} </Content>
             {lastWatching.children && (
               <NextBox>
                 {lastWatching.children.map((next) => (
@@ -78,7 +90,7 @@ function LastWatching() {
                     key={next.uploadId}
                     onClick={() => handleSearch(next.uploadId)}
                   >
-                    {next.content}
+                     uploadId: {next.uploadId} 내용: {next.content}
                   </NextItem>
                 ))}
               </NextBox>

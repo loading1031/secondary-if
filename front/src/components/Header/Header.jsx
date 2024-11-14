@@ -24,11 +24,15 @@ function Header() {
         setSuggestions([]);
         return; // 입력 값이 없는 경우 요청을 보내지 않습니다.
       }
-
+      const token = localStorage.getItem('token'); // 예시: 로컬 스토리지에서 토큰 가져오기
       const endpoint = `/api/artifacts/search?title=${input}`;
 
       try {
-        const response = await axios.get(endpoint);
+        const response = await axios.get(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         console.log(response.data);
         setSuggestions(response.data.result.postResDtos);
       } catch (error) {

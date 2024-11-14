@@ -16,8 +16,14 @@ function TheMostWatchingRoute() {
 
     const fetchUploads = async () => {
       try {
+        const token = localStorage.getItem('token'); // 예시: 로컬 스토리지에서 토큰 가져오기
         const response = await axios.get(
-          `/api/artifacts/${artifact.artifactId}/uploads/${endUploadId}/weight?`
+          `/api/artifacts/${artifact.artifactId}/uploads/${endUploadId}/weight?`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setMaxWeightRoute(response.data.result); // API 호출 결과로 상태 업데이트
         setTotalUploads([]);
