@@ -30,25 +30,6 @@ function TheMostWatchingRoute() {
     fetchUploads();
   }, [artifact, endUploadId]);
 
-  useEffect(() => {
-    if (!artifact || endUploadId) {
-      return; // artifact가 없거나 endUploadId가 있으면 아무것도 하지 않음
-    }
-
-    const fetchTotalUploads = async () => {
-      try {
-        const response = await axios.get(
-          `/api/artifacts/${artifact.artifactId}/graph`
-        );
-        setTotalUploads(response.data.result.getUploadResDtoList); // API 호출 결과로 상태 업데이트
-      } catch (error) {
-        console.error("API 요청 중 오류가 발생했습니다:", error);
-      }
-    };
-
-    fetchTotalUploads();
-  }, [artifact, endUploadId]);
-
   console.log("maxWeightRoute:", maxWeightRoute);
   console.log("totalUploads:", totalUploads);
 
