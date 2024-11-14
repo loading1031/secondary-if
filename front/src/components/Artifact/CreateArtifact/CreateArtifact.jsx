@@ -15,6 +15,7 @@ function CreateArtifact() {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ mode: "onChange" });
 
@@ -25,7 +26,7 @@ function CreateArtifact() {
   const btnDisable = () => {
     return (
       isSubmitting ||
-      !formData.name ||
+      !formData.title ||
       Object.keys(errors).length > 0
     );
   };
@@ -47,13 +48,20 @@ function CreateArtifact() {
       );
       if (loginResponse.status === 200){
         alert(`${data.title}을 성공적으로 업로드했습니다.`)
+        reset();
         navigate('/');
       }
 
     } catch (error) {
       if (error.response) {
-        // Handle responses with specific status codes
-        alert(error.response.data.message);
+        if (error.response.status === 401) {
+          // 401 Unauthorized 에러 처리: 로그인 페이지로 이동
+          alert("로그인을 먼저 해주세요.");
+          navigate('/login');
+        } else {
+          console.log(`message: ${error.response.data.message}`);
+          alert(error.response.data.message);
+        }
       } else {
         alert("An error occurred during login");
       }
@@ -76,7 +84,7 @@ function CreateArtifact() {
             required: "이 필수 입력입니다.",
           })}
         />
-        {errors.content && (
+        {errors.title && (
           <WarningP role="title">{errors.title.message}</WarningP>
         )}
         <StyledButton type="submit" disabled={btnDisable()}>
