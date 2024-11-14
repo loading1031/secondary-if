@@ -42,7 +42,7 @@ function Login() {
       );
       if (loginResponse.status === 200){
         alert(`${data.name}님 환영합니다.`)
-        const token = loginResponse.data.accessToken; // Getting token from response
+        const token = loginResponse.data.result.accessToken; // Getting token from response
         handleAuthentication(token);
         navigate('/');
       }
@@ -64,7 +64,7 @@ function Login() {
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <StyledFieldset>
-        <StyledLegend>로그인 페이지</StyledLegend>
+        <StyledLegend>로그인/회원가입 페이지</StyledLegend>
         <StyledInput
           id="name"
           type="text"
@@ -78,9 +78,6 @@ function Login() {
         />
         {errors.name && (
           <WarningP role="alert">{errors.name.message}</WarningP>
-        )}
-        {errors.password && (
-          <WarningP role="alert">{errors.password.message}</WarningP>
         )}
         <StyledButton type="submit" disabled={btnDisable()}>
           로그인

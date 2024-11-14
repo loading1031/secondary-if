@@ -28,7 +28,7 @@ export const StyledLegend = styled.legend`
   padding: 0 5px; // 텍스트 주변 패딩
   width: auto;
   margin: 0px auto; // 자동 마진으로 중앙 정렬, absolute 없이
-  color: white;
+  color: black;
   font-size: 30px;
 `;
 
