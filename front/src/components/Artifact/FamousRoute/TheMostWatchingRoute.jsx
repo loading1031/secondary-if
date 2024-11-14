@@ -1,13 +1,16 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Route, Node, Content,ResetButton } from "./styles";
+
 
 function TheMostWatchingRoute() {
   const artifact = useSelector((state) => state.search.finalSearchRes);
   const [endUploadId, setEndUploadId] = useState(null);
   const [maxWeightRoute, setMaxWeightRoute] = useState({ nodes: {} }); // Initialize nodes as an empty object
   const [totalUploads, setTotalUploads] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!artifact || !endUploadId) {
@@ -28,12 +31,41 @@ function TheMostWatchingRoute() {
         setMaxWeightRoute(response.data.result); // API 호출 결과로 상태 업데이트
         setTotalUploads([]);
       } catch (error) {
-        console.error("API 요청 중 오류가 발생했습니다:", error);
-        setMaxWeightRoute({ nodes: {} }); // Reset to default on error
+        if (error.response.status === 401) {
+          // 401 Unauthorized 에러 처리: 로그인 페이지로 이동
+          alert("로그인을 먼저 해주세요.");
+          navigate('/login');
+        }else{
+          console.error("API 요청 중 오류가 발생했습니다:", error);
+          setMaxWeightRoute({ nodes: {} }); // Reset to default on error
+        }
       }
     };
 
     fetchUploads();
+  }, [artifact, endUploadId]);
+
+  useEffect(() => {
+    if (!artifact || endUploadId) {
+      return; // artifact가 없거나 endUploadId가 있으면 아무것도 하지 않음
+    }
+    const fetchTotalUploads = async () => {
+      try {
+        const response = await axios.get(
+          `/api/artifacts/${artifact.artifactId}/graph`
+        );
+        setTotalUploads(response.data.result.getUploadResDtoList); // API 호출 결과로 상태 업데이트
+      } catch (error) {
+        if (error.response.status === 401) {
+          // 401 Unauthorized 에러 처리: 로그인 페이지로 이동
+          alert("로그인을 먼저 해주세요.");
+          navigate('/login');
+        }else{
+        console.error("API 요청 중 오류가 발생했습니다:", error);
+        }
+      }
+    };
+    fetchTotalUploads();
   }, [artifact, endUploadId]);
 
   console.log("maxWeightRoute:", maxWeightRoute);
