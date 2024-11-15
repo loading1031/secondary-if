@@ -12,14 +12,16 @@ function TheMostWatchingRoute() {
   const [totalUploads, setTotalUploads] = useState([]);
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     if (!artifact || !endUploadId) {
       return; // artifact가 없거나 endUploadId가 없으면 아무것도 하지 않음
     }
 
+    const token = localStorage.getItem('token'); // 예시: 로컬 스토리지에서 토큰 가져오기
     const fetchUploads = async () => {
       try {
-        const token = localStorage.getItem('token'); // 예시: 로컬 스토리지에서 토큰 가져오기
+       
         const response = await axios.get(
           `/api/artifacts/${artifact.artifactId}/uploads/${endUploadId}/weight?`,
           {
@@ -49,10 +51,16 @@ function TheMostWatchingRoute() {
     if (!artifact || endUploadId) {
       return; // artifact가 없거나 endUploadId가 있으면 아무것도 하지 않음
     }
+    const token = localStorage.getItem('token'); // 예시: 로컬 스토리지에서 토큰 가져오기
     const fetchTotalUploads = async () => {
       try {
         const response = await axios.get(
-          `/api/artifacts/${artifact.artifactId}/graph`
+          `/api/artifacts/${artifact.artifactId}/graph`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setTotalUploads(response.data.result.getUploadResDtoList); // API 호출 결과로 상태 업데이트
       } catch (error) {
