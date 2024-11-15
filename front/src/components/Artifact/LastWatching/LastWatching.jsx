@@ -82,7 +82,7 @@ function LastWatching() {
         {artifact && lastWatching ? (
           <>
             <Title>{artifact.title}</Title>
-            <Content>uploadId: {lastWatching.uploadId} 내용: {lastWatching.content} </Content>
+            <Content>[uploadId: {lastWatching.uploadId}] {lastWatching.content} </Content>
             {lastWatching.children && (
               <NextBox>
                 {lastWatching.children.map((next) => (
@@ -90,7 +90,7 @@ function LastWatching() {
                     key={next.uploadId}
                     onClick={() => handleSearch(next.uploadId)}
                   >
-                     uploadId: {next.uploadId} 내용: {next.content}
+                     [uploadId: {next.uploadId}] {next.content}
                   </NextItem>
                 ))}
               </NextBox>

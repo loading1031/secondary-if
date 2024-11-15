@@ -16,7 +16,7 @@ export const Title = styled.h1`
 
 export const Content = styled.p`
   color: #666666;
-  font-size: 16px;
+  font-size: 2rem;
 `;
 
 export const NextBox = styled.div`
@@ -29,10 +29,11 @@ export const NextBox = styled.div`
 `;
 
 export const NextItem = styled.li`
-  font-size: 0.7rem;
+  font-size: 2rem;
   padding: 10px 1rem;
   list-style: none;
-  
+  background-color: #f7f7f7;
+
   border-bottom: 1px solid #ccc;
 
   &:last-child {
@@ -40,7 +41,7 @@ export const NextItem = styled.li`
   }
 
   &:hover {
-    background-color: #f7f7f7;
+    background-color: yellow;
     cursor: pointer;
   }
 `;

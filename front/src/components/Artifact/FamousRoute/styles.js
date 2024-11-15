@@ -29,7 +29,7 @@ export const ResetButton = styled.button`
 `;
 
 export const Node = styled.li`
-  font-size: 0.7rem;
+  font-size: 2rem;
   padding: 10px 1rem;
   list-style: none;
 
@@ -47,5 +47,5 @@ export const Node = styled.li`
 `;
 
 export const Content = styled.div`
-  margin: 1rem;
+  margin: 2rem;
 `;
