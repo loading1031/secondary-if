@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setFinalSearchRes } from "../../redux/searchSlice";
+import { useNavigate } from "react-router-dom";
 import {
   HeadFieldset,
   Descript,
@@ -17,6 +18,7 @@ function Header() {
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
@@ -36,7 +38,13 @@ function Header() {
         console.log(response.data);
         setSuggestions(response.data.result.postResDtos);
       } catch (error) {
+        if (error.response.status === 401) {
+          // 401 Unauthorized 에러 처리: 로그인 페이지로 이동
+          alert("로그인을 먼저 해주세요.");
+          navigate('/login');
+        }else{
         console.error("요청을 처리하는 중에 오류가 발생했습니다:", error);
+        }
       }
     }, 500); // 500ms 후에 실행
   }, [input]);
