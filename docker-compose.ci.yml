@@ -50,6 +50,7 @@ services:
       SPRING_NEO4J_URI: bolt://neodb:7687
       SPRING_NEO4J_AUTHENTICATION_USERNAME: neo4j
       SPRING_NEO4J_AUTHENTICATION_PASSWORD: root1234
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     networks:
       - network
 
