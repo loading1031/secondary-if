@@ -35,8 +35,8 @@ logging:
     '[com.secondaryif.server]': INFO
     '[org.hibernate.type]': TRACE
 jwt:
-  # secret: ${JWT_SECRET_KEY}
-  secret: 
+  secret: ${JWT_SECRET_KEY}
+
 springdoc:
   use-fqn: true
   default-consumes-media-type: application/json
